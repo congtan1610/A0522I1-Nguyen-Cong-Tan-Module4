@@ -1,6 +1,6 @@
 package com.codegym.model;
 
-public class UserInf {
+public class UserInf  extends Day{
     private String name;
     private String year;
     private String gender;
@@ -9,14 +9,14 @@ public class UserInf {
     private String vehicle;
     private String idVehicle;
     private String seats;
-    private String departureDay;
-    private String closingDay;
+    private Day departureDay;
+    private Day closingDay;
     private String  travelSchedule;
 
     public UserInf() {
     }
 
-    public UserInf(String name, String year, String gender, String national, String idCard, String vehicle, String idVehicle, String seats, String departureDay, String closingDay, String travelSchedule) {
+    public UserInf(String name, String year, String gender, String national, String idCard, String vehicle, String idVehicle, String seats, Day departureDay, Day closingDay, String travelSchedule) {
         this.name = name;
         this.year = year;
         this.gender = gender;
@@ -94,19 +94,19 @@ public class UserInf {
         this.seats = seats;
     }
 
-    public String getDepartureDay() {
+    public Day getDepartureDay() {
         return departureDay;
     }
 
-    public void setDepartureDay(String departureDay) {
+    public void setDepartureDay(Day departureDay) {
         this.departureDay = departureDay;
     }
 
-    public String getClosingDay() {
+    public Day getClosingDay() {
         return closingDay;
     }
 
-    public void setClosingDay(String closingDay) {
+    public void setClosingDay(Day closingDay) {
         this.closingDay = closingDay;
     }
 
