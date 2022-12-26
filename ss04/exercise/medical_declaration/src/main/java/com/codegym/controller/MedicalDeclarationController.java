@@ -1,9 +1,14 @@
 package com.codegym.controller;
 
+import com.codegym.model.ContactAddress;
+import com.codegym.model.Symptom;
+import com.codegym.model.UserInf;
 import com.codegym.service.MedicalDeclarationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 
@@ -47,5 +52,9 @@ public class MedicalDeclarationController {
         model.addAttribute("symptom",medicalDeclaration.findSymptom());
         model.addAttribute("contact",medicalDeclaration.findContactAddress());
         return "index";
+    }
+    @PostMapping("/save")
+    public String save(ContactAddress contact, Symptom symptom, UserInf userInf){
+        return "result";
     }
 }

@@ -289,7 +289,7 @@
         Ban chỉ đạo quốc
         gia về Phòng chống dịch Covid-19.<br>Khi bạn nhấn nút "Gửi" là bạn đã hiểu và đồng ý.</p>
     <center>
-        <button><a href="/">GỬI TỜ KHAI</a></button>
+        <button><a href="/save">GỬI TỜ KHAI</a></button>
     </center>
 </form:form>
 </body>
