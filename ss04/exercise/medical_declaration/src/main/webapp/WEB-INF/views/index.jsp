@@ -15,6 +15,18 @@
             border-spacing: 0px;
         }
 
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        button {
+            border-radius: 5px;
+            background-color: lawngreen;
+            border: none;
+            height: 30px;
+        }
+
         .front tr td {
             width: 30%;
             border: darkgrey 1px solid;
@@ -42,7 +54,7 @@
     DỊCH BÊNH TRUYỀN NHIỄM</h4></center>
 <center><b style="color: red">Khuyến cáo: Khai báo thông tin sai là vi phạm pháp luật Việt Nam và có thể bị xử lý hình
     sự</b></center>
-<form:form action="/save" method="post">
+<form:form action="/save" method="post" autocomplete="true">
     <form:form modelAttribute="userInf">
         <table width="100%">
             <tr>
@@ -184,7 +196,7 @@
         </table>
     </form:form>
     <form:form modelAttribute="symptom">
-        <b>Trong vòng 14 ngày qua, Anh/Chị có thấy xuất hiện dấu hiệu nào sau đây không?</b>
+        <p>Trong vòng 14 ngày qua, Anh/Chị có thấy xuất hiện dấu hiệu nào sau đây không?</p>
         <table class="front" width="100%">
             <tr style="background-color: lightgray">
                 <td>
@@ -200,48 +212,48 @@
             </tr>
             <tr>
                 <td>
-                    <b>Sốt</b>
+                    <p>Sốt</p>
                 </td>
                 <th><form:radiobutton path="fever" value="yes"/></th>
                 <th><form:radiobutton path="fever" value="no"/></th>
                 <td>
-                    <b>Nôn/buồn nôn</b>
+                    <p>Nôn/buồn nôn</p>
                 </td>
                 <th><form:radiobutton path="vomit" value="yes"/></th>
                 <th><form:radiobutton path="vomit" value="no"/></th>
             </tr>
             <tr>
                 <td>
-                    <b>Ho</b>
+                    <p>Ho</p>
                 </td>
                 <th><form:radiobutton path="cough" value="yes"/></th>
                 <th><form:radiobutton path="cough" value="no"/></th>
                 <td>
-                    <b>Tiêu chảy</b>
+                    <p>Tiêu chảy</p>
                 </td>
                 <th><form:radiobutton path="diarrhea" value="yes"/></th>
                 <th><form:radiobutton path="diarrhea" value="no"/></th>
             </tr>
             <tr>
                 <td>
-                    <b>Khó thở</b>
+                    <p>Khó thở</p>
                 </td>
                 <th><form:radiobutton path="shortnessOfBreath" value="yes"/></th>
                 <th><form:radiobutton path="shortnessOfBreath" value="no"/></th>
                 <td>
-                    <b>Xuất huyết ngoài da</b>
+                    <p>Xuất huyết ngoài da</p>
                 </td>
                 <th><form:radiobutton path="skinHemorrhage" value="yes"/></th>
                 <th><form:radiobutton path="skinHemorrhage" value="no"/></th>
             </tr>
             <tr>
                 <td>
-                    <b>Đau họng</b>
+                    <p>Đau họng</p>
                 </td>
                 <th><form:radiobutton path="soreThroat" value="yes"/></th>
                 <th><form:radiobutton path="soreThroat" value="no"/></th>
                 <td>
-                    <b>Nổi ban ngoài da</b>
+                    <p>Nổi ban ngoài da</p>
                 </td>
                 <th><form:radiobutton path="skinRash" value="yes"/></th>
                 <th><form:radiobutton path="skinRash" value="no"/></th>
@@ -258,24 +270,27 @@
             </tr>
             <tr>
                 <td colspan="4">
-                    <b>Đến trang trại chăn nuôi/ chợ buôn bán động vật sống/ cơ sở giết mổ động vật/ tiếp xúc động
-                        vật</b>
+                    <p>Đến trang trại chăn nuôi/ chợ buôn bán động vật sống/ cơ sở giết mổ động vật/ tiếp xúc động
+                        vật</p>
                 </td>
                 <th><form:radiobutton path="exposure1" value="yes"/></th>
                 <th><form:radiobutton path="exposure1" value="no"/></th>
             </tr>
             <tr>
                 <td colspan="4">
-                    <b>Tiếp xúc gần (<2m) với người mắc bệnh viêm đường hô hấp do nCoV</b>
+                    <p>Tiếp xúc gần (<2m) với người mắc bệnh viêm đường hô hấp do nCoV</p>
                 </td>
                 <th><form:radiobutton path="exposure2" value="yes"/></th>
                 <th><form:radiobutton path="exposure2" value="no"/></th>
             </tr>
         </table>
     </form:form>
-    <p>Dữ liệu bạn cung cấp hoàn toàn bảo mật và chỉ phục vụ cho phòng chống dịch, thuộc quản lí của Ban chỉ đạo quốc
+    <p style="color: red">Dữ liệu bạn cung cấp hoàn toàn bảo mật và chỉ phục vụ cho phòng chống dịch, thuộc quản lí của
+        Ban chỉ đạo quốc
         gia về Phòng chống dịch Covid-19.<br>Khi bạn nhấn nút "Gửi" là bạn đã hiểu và đồng ý.</p>
-    <form:button>Gửi tờ khai</form:button>
+    <center>
+        <button><a href="/">GỬI TỜ KHAI</a></button>
+    </center>
 </form:form>
 </body>
 </html>
