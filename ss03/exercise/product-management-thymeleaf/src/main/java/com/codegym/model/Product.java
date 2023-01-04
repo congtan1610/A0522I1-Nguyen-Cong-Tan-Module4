@@ -1,12 +1,19 @@
 package com.codegym.model;
 
+import javax.persistence.*;
 import java.util.Objects;
-
+@Entity
 public class Product {
+    @Id
+    @Column(name="ma_san_pham")
     private String id;
+    @Column(name = "ten_san_pham")
     private String name;
+    @Column(name = "gia")
     private Integer price;
+    @Column(name="chi_tiet")
     private String detail;
+    @Column(name = "nha_san_xuat")
     private  String producer;
 
     public Product() {
