@@ -1,9 +1,11 @@
-package com.codegym.blog.model;
+package com.example.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+import java.util.Objects;
 
 @Entity
 public class Blog {
@@ -20,6 +22,23 @@ public class Blog {
         this.id = id;
         this.name = name;
         this.detail = detail;
+    }
+
+    public Blog(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Blog)) return false;
+        Blog blog = (Blog) o;
+        return Objects.equals(getId(), blog.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 
     public Integer getId() {

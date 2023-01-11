@@ -1,6 +1,6 @@
-package com.codegym.blog.service;
+package com.example.demo.service;
 
-import com.codegym.blog.model.Blog;
+import com.example.demo.model.Blog;
 
 import java.util.List;
 

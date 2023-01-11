@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+</head>
+<body>
+<a href="/blog/create">Add new blog</a>
+<b th:text="${mess}" style="color: red"></b>
+<table>
+    <tr>
+        <th>No</th>
+        <th>Name</th>
+        <th>Detail</th>
+        <th>action</th>
+    </tr>
+    <tr th:each="blog:${blogs}">
+        <td th:text="${blog.id}"></td>
+        <td th:text="${blog.name}"></td>
+        <td th:text="${blog.detail}"></td>
+        <td>
+            <a th:href="@{/blog/view/{id}(id=${blog.id})}">view</a>
+            <a th:href="@{/blog/update/{id}(id=${blog.id})}">update</a>
+            <a th:href="@{/blog/delete/{id}(id=${blog.id})}" onclick="return confirm('Bạn có chắc chắn xóa không ?')">delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
