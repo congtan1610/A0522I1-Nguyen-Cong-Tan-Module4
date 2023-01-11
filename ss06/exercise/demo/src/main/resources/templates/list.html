@@ -14,7 +14,7 @@
         <th>Detail</th>
         <th>action</th>
     </tr>
-    <tr th:each="blog:${blogs}">
+    <tr th:each="blog:${blogs.content}">
         <td th:text="${blog.id}"></td>
         <td th:text="${blog.name}"></td>
         <td th:text="${blog.detail}"></td>
@@ -25,5 +25,13 @@
         </td>
     </tr>
 </table>
+<div>
+    <a th:href="@{/blog(page=${blogs.number - 1})}" th:if="${blogs.hasPrevious()}">Previous</a>
+<!--    <span th:text="${blogs.number + 1}"></span>/<span th:text="${blogs.totalPages}"></span>-->
+    <span  th:each="pageNo:${#numbers.sequence(0,blogs.totalPages-1)}">
+        <a th:href="@{/blog(page=${pageNo})}" th:text="${pageNo}"/>
+    </span>
+    <a th:href="@{/blog(page=${blogs.number + 1})}" th:if="${blogs.hasNext()}">Next</a>
+</div>
 </body>
 </html>

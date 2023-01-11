@@ -3,6 +3,8 @@ package com.example.demo.service;
 import com.example.demo.model.Blog;
 import com.example.demo.repository.IBlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +15,8 @@ public class BlogService implements IBlogService {
     private IBlogRepository iBlogRepository;
 
     @Override
-    public List<Blog> findAll() {
-        return iBlogRepository.findAll();
+    public Page<Blog> findAll(PageRequest pageRequest) {
+        return iBlogRepository.findAllWithPage(pageRequest);
     }
 
     @Override

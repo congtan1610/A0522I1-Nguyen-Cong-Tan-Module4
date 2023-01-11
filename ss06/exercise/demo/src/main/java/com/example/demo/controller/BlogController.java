@@ -3,7 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Blog;
 import com.example.demo.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +16,8 @@ public class BlogController {
     @Autowired
     private BlogService blogService;
     @GetMapping("")
-    public String find(Model model){
-        model.addAttribute("blogs",blogService.findAll());
+    public String find(Model model,@RequestParam(value = "page",defaultValue = "0")int page){
+        model.addAttribute("blogs",blogService.findAll(PageRequest.of(page,1)));
         return "list";
     }
     @GetMapping("/create")

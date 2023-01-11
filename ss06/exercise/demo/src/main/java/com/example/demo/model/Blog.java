@@ -1,9 +1,7 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Objects;
 
@@ -14,7 +12,9 @@ public class Blog {
     private Integer id;
     private String name;
     private String detail;
-
+//@ManyToOne
+//@JoinColumn(name = "id_cate")
+//private Category category;
     public Blog() {
     }
 
@@ -64,4 +64,12 @@ public class Blog {
     public void setDetail(String detail) {
         this.detail = detail;
     }
+
+//    public Category getCategory() {
+//        return category;
+//    }
+//
+//    public void setCategory(Category category) {
+//        this.category = category;
+//    }
 }
