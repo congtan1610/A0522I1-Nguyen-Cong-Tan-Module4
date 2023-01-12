@@ -1,8 +1,6 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Value;
-
 import java.util.Objects;
 
 @Entity
@@ -12,9 +10,9 @@ public class Blog {
     private Integer id;
     private String name;
     private String detail;
-//@ManyToOne
-//@JoinColumn(name = "id_cate")
-//private Category category;
+@ManyToOne
+@JoinColumn(name = "id_cate")
+private Category category;
     public Blog() {
     }
 
@@ -65,11 +63,11 @@ public class Blog {
         this.detail = detail;
     }
 
-//    public Category getCategory() {
-//        return category;
-//    }
-//
-//    public void setCategory(Category category) {
-//        this.category = category;
-//    }
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }

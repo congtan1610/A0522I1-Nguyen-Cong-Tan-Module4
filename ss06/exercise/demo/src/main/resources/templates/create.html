@@ -12,6 +12,9 @@
     <input type="text"  th:field="*{name}"/>
     <label>detail</label>
     <input type="text"  th:field="*{detail}"/>
+    <select th:field="*{category}">
+        <option th:each="cate:${categoryList}" th:text="${cate.nameCategory}" th:value="${cate.id}"></option>
+    </select>
     <button type="submit">save</button>
     <button><a th:href="@{/blog}">cancle</a></button>
 </form>

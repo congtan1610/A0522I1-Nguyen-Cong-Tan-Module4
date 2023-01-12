@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit product</title>
+    <style>
+        button>a{
+            text-decoration: none;
+            color: black;
+        }
+        button{
+            border: 1px white solid;
+        }
+        button:hover{
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+<form action="/update" method="post" th:object="${product}">
+    <table>
+        <tr>
+            <th>id</th>
+            <td><input type="text" th:field="*{id}" disabled/>
+                <input type="text" th:field="*{id}" hidden="hidden"/></td>
+        </tr>
+        <tr>
+            <th>name</th>
+            <td><input type="text" th:field="*{name}"/></td>
+        </tr>
+        <tr>
+            <th>price</th>
+            <td><input type="text" th:field="*{price}"/></td>
+        </tr>
+        <tr>
+            <th>detail</th>
+            <td><input type="text" th:field="*{detail}"/></td>
+        </tr>
+        <tr>
+            <th>producer</th>
+            <td><input type="text" th:field="*{producer}"/></td>
+        </tr>
+        <tr>
+            <th></th>
+            <th>
+                <button type="submit">save</button>
+                <button ><a th:href="@{/home.html}">cancle</a></button></th>
+        </tr>
+    </table>
+    </form>
+</body>
+</html>
