@@ -4,6 +4,8 @@ package com.codegym.productmanagement.controller;
 import com.codegym.productmanagement.model.Product;
 import com.codegym.productmanagement.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +16,9 @@ public class ProductController {
     @Autowired
     private IProductService productService;
     @GetMapping("/home")
-    public String home(Model model){
-        model.addAttribute("list",productService.findAll());
+    public String home(Model model,@RequestParam(value = "page",defaultValue = "0")int page){
+        Sort sort=Sort.by("ma_san_pham").descending();
+        model.addAttribute("list",productService.findAllWithPage(PageRequest.of(page,2,sort)));
         return "home";
     }
     @GetMapping("/create")
@@ -30,7 +33,7 @@ public class ProductController {
         return "redirect:/home";
     }
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") String id,Model model){
+    public String edit(@PathVariable("id") Integer id,Model model){
         model.addAttribute("product",productService.findById(id));
         return "edit";
     }
@@ -41,22 +44,22 @@ public class ProductController {
         return "redirect:/home";
     }
     @GetMapping("/view/{id}")
-    public String view(@PathVariable("id") String id,Model model){
+    public String view(@PathVariable("id") Integer id,Model model){
         model.addAttribute("product", productService.findById(id));
         return "view";
     }
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") String id,RedirectAttributes redirectAttributes){
+    public String delete(@PathVariable("id") Integer id,RedirectAttributes redirectAttributes){
         productService.delete(id);
         redirectAttributes.addFlashAttribute("success","Delete product successfully");
         return "redirect:/home";
     }
     @GetMapping("/find")
-    public String findByname(Model model, @RequestParam("name") String name){
+    public String findByname(Model model, @RequestParam(value = "name") String name,@RequestParam(value = "page",defaultValue = "0")int page){
         if (name.isEmpty()){
-            model.addAttribute("list",productService.findAll());
+            model.addAttribute("list",productService.findAllWithPage(PageRequest.of(page,2)));
         }else{
-            model.addAttribute("list",productService.findByName(name));
+            model.addAttribute("list",productService.findByName(name,PageRequest.of(page,8)));
         }
         return "home";
     }

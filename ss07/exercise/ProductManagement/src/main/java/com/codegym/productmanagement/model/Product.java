@@ -1,8 +1,6 @@
 package com.codegym.productmanagement.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -10,7 +8,8 @@ import java.util.Objects;
 public class Product {
     @Id
     @Column(name="ma_san_pham")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     @Column(name = "ten_san_pham")
     private String name;
     @Column(name = "gia")
@@ -23,7 +22,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String id, String name, Integer price, String detail, String producer) {
+    public Product(Integer id, String name, Integer price, String detail, String producer) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -31,7 +30,7 @@ public class Product {
         this.producer = producer;
     }
 
-    public Product(String id) {
+    public Product(Integer id) {
         this.id = id;
     }
 
@@ -48,11 +47,11 @@ public class Product {
         return 0;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
