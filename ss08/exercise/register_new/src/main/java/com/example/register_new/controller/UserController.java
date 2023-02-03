@@ -24,6 +24,7 @@ public class UserController {
 
     @PostMapping("/create")
     public String createStudent(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
+        new User().validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             return "index";
         }
