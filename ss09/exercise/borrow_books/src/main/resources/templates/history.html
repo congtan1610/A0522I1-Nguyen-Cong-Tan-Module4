@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>History</title>
+</head>
+<body>
+<a th:href="@{/home}">home</a>
+<table>
+    <tr>
+        <th>Id_Borrow</th>
+        <th>Name</th>
+    </tr>
+    <tr th:if="${list.isEmpty}"><th>Null</th></tr>
+    <tr th:each="borrow:${list}">
+        <td th:text="*{borrow.id}"></td>
+        <td th:text="*{borrow.name}"></td>
+    </tr>
+</table>
+</body>
+</html>
