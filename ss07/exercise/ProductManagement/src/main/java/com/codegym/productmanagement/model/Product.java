@@ -1,22 +1,31 @@
 package com.codegym.productmanagement.model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 import java.util.Objects;
 
 @Entity
-public class Product {
+public class Product implements Validator {
     @Id
     @Column(name="ma_san_pham")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "ten_san_pham")
+    @NotBlank(message = "cannot be left blank")
     private String name;
     @Column(name = "gia")
+    @NotNull(message = "cannot be left blank")
     private Integer price;
     @Column(name="chi_tiet")
+    @NotBlank(message = "cannot be left blank")
     private String detail;
     @Column(name = "nha_san_xuat")
+    @NotBlank(message = "cannot be left blank")
     private  String producer;
 
     public Product() {
@@ -85,5 +94,24 @@ public class Product {
 
     public void setProducer(String producer) {
         this.producer = producer;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        Product product=(Product) target;
+        if (!product.name.matches("^[a-zA-Z0-9\\+]*$")){
+            errors.rejectValue("name","","name does not contain special characters");
+        }
+        if (!product.detail.matches("^[a-zA-Z0-9\\+]*$")){
+            errors.rejectValue("artist","","artist does not contain special characters");
+        }
+        if (!product.producer.matches("^[a-zA-Z0-9\\+]*$")){
+            errors.rejectValue("artist","","artist does not contain special characters");
+        }
     }
 }

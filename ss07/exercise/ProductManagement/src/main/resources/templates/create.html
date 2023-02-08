@@ -25,18 +25,22 @@
         <tr>
             <th>name</th>
             <td><input type="text" th:field="*{name}"/></td>
+            <td><p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p></td>
         </tr>
         <tr>
             <th>price</th>
             <td><input type="text" th:field="*{price}"/></td>
+            <td><p style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p></td>
         </tr>
         <tr>
             <th>detail</th>
             <td><input type="text" th:field="*{detail}"/></td>
+            <td><p style="color: red" th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}"></p></td>
         </tr>
         <tr>
             <th>producer</th>
             <td><input type="text" th:field="*{producer}"/></td>
+            <td><p style="color: red" th:if="${#fields.hasErrors('producer')}" th:errors="*{producer}"></p></td>
         </tr>
         <tr>
             <th></th>
