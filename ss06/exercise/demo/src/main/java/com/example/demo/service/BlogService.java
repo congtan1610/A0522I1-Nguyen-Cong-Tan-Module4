@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,7 +16,7 @@ public class BlogService implements IBlogService {
     private IBlogRepository iBlogRepository;
 
     @Override
-    public Page<Blog> findAll(PageRequest pageRequest) {
+    public Page<Blog> findAllWithPage(PageRequest pageRequest) {
         return iBlogRepository.findAllWithPage(pageRequest);
     }
 
@@ -24,6 +25,7 @@ public class BlogService implements IBlogService {
         iBlogRepository.save(blog);
     }
 
+    @Override
     public Blog findById(Integer id) {
 //        List<Blog> list=iBlogRepository.findAll();
 //        return list.get(list.indexOf(new Blog(id)));
@@ -33,5 +35,21 @@ public class BlogService implements IBlogService {
     @Override
     public void delete(Integer id) {
             iBlogRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Blog> findAll() {
+        return iBlogRepository.findAll();
+    }
+
+    @Override
+    public List<Blog> findAllByIdCategory(Integer id) {
+        List<Blog> list=new ArrayList<>();
+        for (Blog blog:iBlogRepository.findAll()){
+            if (blog.getCategory().getId()==id){
+                list.add(blog);
+            }
+        }
+        return list;
     }
 }

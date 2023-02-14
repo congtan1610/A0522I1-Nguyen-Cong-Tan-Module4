@@ -7,8 +7,10 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 public interface IBlogService {
-    Page<Blog> findAll(PageRequest pageRequest);
+    Page<Blog> findAllWithPage(PageRequest pageRequest);
     void save(Blog blog);
     void delete(Integer id);
-
+    List<Blog> findAll();
+    List<Blog> findAllByIdCategory(Integer id);
+    Blog findById(Integer id);
 }

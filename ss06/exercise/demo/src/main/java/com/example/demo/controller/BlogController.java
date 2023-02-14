@@ -21,7 +21,7 @@ public class BlogController {
     private ICategoryService icategoryService;
     @GetMapping("")
     public String find(Model model,@RequestParam(value = "page",defaultValue = "0")int page){
-        model.addAttribute("blogs",blogService.findAll(PageRequest.of(page,1)));
+        model.addAttribute("blogs",blogService.findAllWithPage(PageRequest.of(page,1)));
         return "list";
     }
     @GetMapping("/create")
