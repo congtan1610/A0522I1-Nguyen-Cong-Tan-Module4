@@ -13,13 +13,14 @@
     <td>Name</td>
     <td>Price</td>
     <td>Add To Cart</td>
-    <td></td>
+   <td><img src="../static/image/ip14.jpg"/></td>
   </tr>
   <th:block th:each="product:${products}">
     <tr>
       <td th:text="${product.name}"></td>
       <td th:text="${product.price}"></td>
       <td><a th:href="@{/add/__${product.id}__(action='list')}">Add To Cart</a></td>
+      <td><img th:src="${product.image}"/></td>
     </tr>
   </th:block>
 </table>
