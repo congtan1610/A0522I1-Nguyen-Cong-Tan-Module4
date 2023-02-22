@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>List Smartphone</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function update() {
+            //lay du lieu
+            let producer = $('#producer').val();
+            let id = $('#id').val();
+            let model = $('#model').val();
+            let price = $('#price').val();
+            let smartphone = {
+                id:id,
+                producer: producer,
+                model: model,
+                price: price
+            };
+            // goi ajax
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: "POST",
+                data: JSON.stringify(smartphone),
+                //tên API
+                url: "/smartphones/save",
+                //xử lý khi thành công
+                success: function (){
+                    alert("update success")
+                },
+                error:function (){
+                    alert("update failed")
+                }
+            });
+            //chặn sự kiện mặc định của thẻ
+            event.preventDefault();
+        }
+    </script>
+</head>
+<body>
+<form th:object="${smartphone}">
+    <table>
+        <tr hidden>
+            <td></td>
+            <td><input type="text" id="id" th:field="*{id}"></td>
+        </tr>
+        <tr>
+            <td>Producer:</td>
+            <td><input type="text" id="producer" th:field="*{producer}" placeholder="producer"></td>
+        </tr>
+        <tr>
+            <td>Model:</td>
+            <td><input type="text" id="model" th:field="*{model}" placeholder="model"></td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td><input type="text" id="price" th:field="*{price}" placeholder="price"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Save" onclick="update()"></td>
+            <td><button><a href="/">home</a></button></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

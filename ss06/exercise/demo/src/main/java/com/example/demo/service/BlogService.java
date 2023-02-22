@@ -33,6 +33,11 @@ public class BlogService implements IBlogService {
     }
 
     @Override
+    public Blog findByName(String name) {
+        return iBlogRepository.findByName(name);
+    }
+
+    @Override
     public void delete(Integer id) {
             iBlogRepository.deleteById(id);
     }

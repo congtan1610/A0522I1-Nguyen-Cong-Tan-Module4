@@ -13,4 +13,5 @@ public interface IBlogService {
     List<Blog> findAll();
     List<Blog> findAllByIdCategory(Integer id);
     Blog findById(Integer id);
+    Blog findByName(String name);
 }

@@ -24,6 +24,7 @@ public class BlogController {
         model.addAttribute("blogs",blogService.findAllWithPage(PageRequest.of(page,1)));
         return "list";
     }
+
     @GetMapping("/create")
     public String create(Model model){
         model.addAttribute("blog",new Blog());
