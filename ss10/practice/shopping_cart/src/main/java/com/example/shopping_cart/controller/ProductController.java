@@ -5,6 +5,7 @@ import com.example.shopping_cart.model.Product;
 import com.example.shopping_cart.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -40,5 +41,10 @@ public class ProductController {
         }
         cart.addProduct(productOptional.get());
         return "redirect:/shop";
+    }
+    @GetMapping("/detail/{id}")
+    public String detailProduct(@PathVariable Long id, Model model){
+        model.addAttribute("product",productService.findById(id).orElse(new Product()));
+        return "detail";
     }
 }

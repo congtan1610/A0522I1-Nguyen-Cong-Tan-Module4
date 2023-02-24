@@ -1,28 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Shop</title>
+    <meta charset="UTF-8">
+    <title>Shop</title>
 </head>
 <body>
 <p>
-  <a href="/shopping-cart">Your cart</a>
+    <a href="/shopping-cart">Your cart</a>
 </p>
-<table border="1">
-  <tr>
-    <td>Name</td>
-    <td>Price</td>
-    <td>Add To Cart</td>
-   <td><img src="../static/image/ip14.jpg"/></td>
-  </tr>
-  <th:block th:each="product:${products}">
-    <tr>
-      <td th:text="${product.name}"></td>
-      <td th:text="${product.price}"></td>
-      <td><a th:href="@{/add/__${product.id}__(action='list')}">Add To Cart</a></td>
-      <td><img th:src="${product.image}"/></td>
-    </tr>
-  </th:block>
-</table>
+<div class="big" style="display: unset;width: 100%" th:each="product:${products}">
+    <a th:href="@{/detail/{id}(id=${product.id})}">
+        <div style="border: 1px solid lightslategray;width: 240px;height: 300px;float: left;margin-right: 5px;position: relative">
+            <div>
+                <center><img th:src="@{'image/'+${product.image}}" width=100% height="230px"/></center>
+            </div>
+            <div style="border: 1px solid lightslategray;background-color: lightgray;position: absolute;bottom: 0;width: 100%">
+                <center><b th:text="${product.name}"></b></center>
+                <center><b style="color: red" th:text="${product.price}"></b></center>
+            </div>
+        </div>
+    </a>
+</div>
+<!--<table border="1" >-->
+<!--    <tr>-->
+<!--        <td>Name</td>-->
+<!--        <td>Price</td>-->
+<!--        <td>Add To Cart</td>-->
+<!--        <td>Image</td>-->
+<!--    </tr>-->
+<!--    <th:block th:each="product:${products}">-->
+<!--        <tr>-->
+<!--            <td th:text="${product.name}"></td>-->
+<!--            <td th:text="${product.price}"></td>-->
+<!--            <td><a th:href="@{/add/__${product.id}__(action='list')}">Add To Cart</a></td>-->
+<!--            <td><img th:src="${product.image}" width="50px" height="50px"/></td>-->
+<!--        </tr>-->
+<!--    </th:block>-->
+<!--</table>-->
 </body>
 </html>

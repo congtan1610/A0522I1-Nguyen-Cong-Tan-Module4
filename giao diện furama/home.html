@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        /* *{
+            margin: 0;
+        } */
+        header {
+            width: 100%;
+            height: 100px;
+            border: 1px solid;
+            position: relative;
+        }
+
+        .logo {
+            position: absolute;
+            width: 50px;
+            top: 10px;
+            left: 10px;
+        }
+
+        .user {
+            position: absolute;
+            top: 40px;
+            right: 30px;
+        }
+
+        .link {
+            width: 100%;
+            height: 40px;
+            border: 1px solid;
+            position: relative;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .link_a {
+            position: relative;
+            top: 10px;
+            margin-left: 50px;
+            font-weight: bold;
+        }
+
+        .search {
+            border-radius: 7px;
+            width: 200px;
+            height: 20px;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+        }
+
+        .content_left {
+            width: 20%;
+            height: 500px;
+            border-right: 1px solid;
+            float: left;
+        }
+
+        .content_right {
+            width: 70%;
+            height: 500px;
+        }
+
+        .content {
+            width: 100%;
+            height: auto;
+            border: 1px solid;
+        }
+
+        .item {
+            padding-left: 20px;
+        }
+
+        footer {
+            width: 100%;
+            height: 50px;
+            border: 1px solid;
+            padding-top: 10px;
+            position: relative;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="http://placehold.it" width="50" height="50"><br>
+            <center><b>Logo</b></center>
+        </div>
+        <b class="user">Nguyễn Văn A</b>
+    </header>
+    <div class="link">
+        <a href="#" class="link_a" style="margin-left:100px">Home</a>
+        <a href="#" class="link_a">Employee</a>
+        <a href="#" class="link_a">Customer</a>
+        <a href="#" class="link_a">Service</a>
+        <a href="#" class="link_a">Contract</a>
+        <input class="search" type="text" placeholder="search" />
+    </div>
+    <div class="content">
+        <div class="content_left">
+            <b class="item">item one</b><br>
+            <b class="item">item two</b><br>
+            <b class="item">item three</b><br>
+        </div>
+        <div class="content_right">
+
+        </div>
+    </div>
+    <footer>
+        <center><b>Footer</b></center>
+    </footer>
+</body>
+
+</html>

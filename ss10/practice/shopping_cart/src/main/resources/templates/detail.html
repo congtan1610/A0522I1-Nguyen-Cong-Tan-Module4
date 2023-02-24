@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail</title>
+</head>
+<body>
+<div style="display: unset;width: 100%">
+    <div style="border: 1px solid lightslategray;width: 240px;height: 300px;float: left;margin-right: 5px">
+        <div>
+            <center><img th:src="'http://localhost:8080/image/'+${product.image}" width=100% height="230px"/></center>
+        </div>
+        <div style="border: 1px solid lightslategray;background-color: lightgray">
+            <center><b th:text="${product.name}"></b></center>
+            <center><b style="color: red" th:text="${product.price}"></b></center>
+            <center>
+                <button style="width: 90%;height: 30px;border-radius: 4px;background-color: lightgreen"><a
+                        style="text-decoration: none;color: black;width: 100%;height: 100%"
+                        th:href="@{/add/__${product.id}__(action='list')}">Mua ngay</a></button>
+            </center>
+        </div>
+    </div>
+</div>
+</body>
+</html>
