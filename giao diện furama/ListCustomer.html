@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>List Customer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+        /* *{
+            margin: 0;
+        } */
+        header {
+            width: 100%;
+            height: 100px;
+            border: 1px solid;
+            position: relative;
+        }
+
+        .logo {
+            position: absolute;
+            width: 50px;
+            top: 10px;
+            left: 10px;
+        }
+
+        .user {
+            position: absolute;
+            top: 40px;
+            right: 30px;
+        }
+
+        .link {
+            width: 100%;
+            height: 40px;
+            border: 1px solid;
+            position: relative;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .link_a {
+            position: relative;
+            top: 10px;
+            margin-left: 50px;
+            font-weight: bold;
+        }
+
+        .search {
+            border-radius: 7px;
+            width: 200px;
+            height: 20px;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+        }
+
+        .content {
+            width: 100%;
+            height: auto;
+            border: 1px solid;
+        }
+
+        .item {
+            padding-left: 20px;
+        }
+
+        footer {
+            width: 100%;
+            height: 50px;
+            border: 1px solid;
+            padding-top: 10px;
+            position: relative;
+        }
+
+    </style>
+</head>
+
+<body class="container-fluid">
+    <header>
+        <div class="logo">
+            <img src="http://placehold.it" width="50" height="50"><br>
+            <center><b>Logo</b></center>
+        </div>
+        <b class="user">Nguyễn Văn A</b>
+    </header>
+    <div class="link">
+        <a href="#" class="link_a" style="margin-left:100px">Home</a>
+        <a href="#" class="link_a">Employee</a>
+        <a href="#" class="link_a">Customer</a>
+        <a href="#" class="link_a">Service</a>
+        <a href="#" class="link_a">Contract</a>
+        <input class="search" type="text" placeholder="search" />
+    </div>
+    <div class="content">
+        <center style="font-size: larger;"><b>List Customer</b></center>
+        <a href="#" class="btn btn-primary" role="button" aria-disabled="true">Add New</a>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Customer Type</th>
+                <th>Name</th>
+                <th>Date Of Birth</th>
+                <th>Gender</th>
+                <th>Id Card</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td>Id</td>
+                <td>Customer Type</td>
+                <td>Name</td>
+                <td>Date Of Birth</td>
+                <td>Gender</td>
+                <td>Id Card</td>
+                <td>Phone Number</td>
+                <td>Email</td>
+                <td>Address</td>
+                <td>
+                    <a href="#" class="btn btn-primary" role="button" aria-disabled="true">Edit</a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <footer>
+        <center><b>Footer</b></center>
+    </footer>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Customer</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table>
+                        <tr>
+                            <th>Id:</th>
+                            <td>Id</td>
+                        </tr>
+                        <tr>
+                            <th>Customer Type:</th>
+                            <td>Customer Type</td>
+                        </tr>
+                        <tr>
+                            <th>Name:</th>
+                            <td>Name</td>
+                        <tr>
+                            <th>Date Of Birth:</th>
+                            <td>Date Of Birth</td>
+                        </tr>
+                        <tr>
+                            <th>Gender:</th>
+                            <td>Gender</td>
+                        </tr>
+                        <tr>
+                            <th>Id Card:</th>
+                            <td>Id Card</td>
+                        </tr>
+                        <tr>
+                            <th>Phone Number:</th>
+                            <td>Phone Number</td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td>Email</td>
+                        </tr>
+                        <tr>
+                            <th>Address:</th>
+                            <td>Address</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+
+</html>

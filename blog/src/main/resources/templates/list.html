@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/file_bootstrap5/bootstrap.min.css">
+    <script src="/file_bootstrap5/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<form th:action="@{/blog}">
+    <input name="nameBlog" type="text"/>
+    <input type="submit" value="Search"/>
+</form>
+<a href="/blog/create">Add new blog</a>
+
+<b th:text="${mess}" style="color: red"></b>
+<table class="table table-striped" id="result">
+    <tr>
+        <th>No</th>
+        <th>Name</th>
+        <th>Detail</th>
+        <th>Category</th>
+        <th>Action</th>
+    </tr>
+    <tr>
+        <td th:if="${blogs.isEmpty()}">Not Found</td>
+    </tr>
+    <tr th:each="blog:${blogs.content}">
+        <td id="id" th:text="${blog.id}"></td>
+        <td th:text="${blog.name}"></td>
+        <td th:text="${blog.detail}"></td>
+        <td th:text="${blog.category.nameCategory}"></td>
+        <td>
+            <!--<a th:href="@{/blog/view/{id}(id=${blog.id})}">view</a>-->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    th:value="${blog.id}" id="detail" onclick="detail()">Detail
+            </button>
+            <a th:href="@{/blog/update/{id}(id=${blog.id})}" class="btn btn-primary " role="button"
+               aria-disabled="true">update</a>
+            <a th:href="@{/blog/delete/{id}(id=${blog.id})}" class="btn btn-primary " role="button" aria-disabled="true"
+               onclick="return confirm('Bạn có chắc chắn xóa không ?')">delete</a>
+        </td>
+    </tr>
+</table>
+<!--phan trang-->
+<center>
+    <div th:if="${!blogs.isEmpty()}" style="margin-top: 50px">
+        <a class="btn btn-primary " role="button" aria-disabled="true"
+           th:href="@{/blog(page=${blogs.number - 1},nameBlog=${nameBlog})}" th:if="${blogs.hasPrevious()}">Previous</a>
+        <!--    <span th:text="${blogs.number + 1}"></span>/<span th:text="${blogs.totalPages}"></span>-->
+        <span th:href="${blogs.isEmpty()}" th:each="pageNo:${#numbers.sequence(0,blogs.totalPages-1)}">
+        <a th:if="${!(blogs.number==pageNo)}" class="btn btn-primary" role="button" aria-disabled="true"
+           th:href="@{/blog(page=${pageNo},nameBlog=${nameBlog})}" th:text="${pageNo}"/>
+        <a th:if="${(blogs.number==pageNo)}" class="btn btn-primary" role="button" aria-disabled="true"
+           th:href="@{/blog(page=${pageNo},nameBlog=${nameBlog})}" th:text="${pageNo}" style="background-color: red"/>
+    </span>
+        <a class="btn btn-primary " role="button" aria-disabled="true"
+           th:href="@{/blog(page=${blogs.number + 1},nameBlog=${nameBlog})}" th:if="${blogs.hasNext()}">Next</a>
+    </div>
+</center>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Detail</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table id="resultDetail">
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function detail() {
+        debugger
+        let id = $('#detail').attr('value');
+        $.ajax({
+            type: "GET",
+            url: `http://localhost:8080/api/blog/` + id,
+            success: function (data) {
+                let content = getBlog(data);
+                document.getElementById('resultDetail').innerHTML = content;
+            },
+            error: function (params) {
+                alert("error");
+            }
+        })
+    }
+
+    function getBlog(blog) {
+        return `<tr><th>id:</th><td >${blog.id}</td></tr><tr><th>name:</th><td >${blog.name}</td></tr><tr><th>detail:</th><td >${blog.detail}</td></tr><tr><th>category:</th><td >${blog.category.nameCategory}</td></tr>`;
+    }
+</script>
+</html>
