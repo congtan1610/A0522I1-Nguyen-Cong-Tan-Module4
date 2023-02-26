@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Add new</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/file_bootstrap5/bootstrap.min.css">
+    <link rel="stylesheet" href="/file_css/customerAddAndUp.css">
+    <script src="/file_bootstrap5/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+<header>
+    <div class="logo">
+        <img src="http://placehold.it" width="50" height="50"><br>
+        <center><b>Logo</b></center>
+    </div>
+    <b class="user">Nguyễn Văn A</b>
+</header>
+<div class="link">
+    <a href="#" class="link_a" style="margin-left:100px">Home</a>
+    <a href="#" class="link_a">Employee</a>
+    <a href="#" class="link_a">Customer</a>
+    <a href="#" class="link_a">Service</a>
+    <a href="#" class="link_a">Contract</a>
+</div>
+<div class="content">
+    <form th:object="${customer}" method="post" action="/customer/addCustomer">
+        <fieldset>
+            <legend>New Customer</legend>
+            <center>
+                <table width=70%>
+                    <tr>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Name</label>
+                                <input th:field="*{name}" type="text" class="form-control" placeholder="Enter your name">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mb-3">
+                                <label class="form-label">Customer Type</label>
+                                <select class="form-select" th:field="*{customerType}">
+                                    <option th:each="type:${types}" th:text="${type.name}" th:value="${type.id}"></option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Date Of Birth</label>
+                                <input th:field="*{dateOfBirth}" type="date" class="form-control">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Gender</label>
+                                <select class="form-select" th:field="*{gender}" >
+                                    <option value=1 >Nam</option>
+                                    <option value=0 >Nữ</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Id Card</label>
+                                <input th:field="*{idCard}" type="text" class="form-control" placeholder="Enteryour id card">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Phone Number</label>
+                                <input th:field="*{phoneNumber}" type="text" class="form-control" placeholder="Enter your phone number">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Email</label>
+                                <input th:field="*{email}" type="text" class="form-control" placeholder="Enter your email">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Address</label>
+                                <input th:field="*{address}" type="text" class="form-control" placeholder="Enter your address">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td></td>
+                        <td >
+                            <input type="submit" class="btn btn-primary" role="button"
+                               aria-disabled="true" style="float: right" value="Add"/>
+                        </td>
+                    </tr>
+                </table>
+            </center>
+        </fieldset>
+    </form>
+</div>
+<footer>
+    <center><b>Footer</b></center>
+</footer>
+</body>
+</html>
