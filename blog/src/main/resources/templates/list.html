@@ -35,7 +35,7 @@
         <td>
             <!--<a th:href="@{/blog/view/{id}(id=${blog.id})}">view</a>-->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    th:value="${blog.id}" id="detail" onclick="detail()">Detail
+                    th:value="${blog.id}" id="detail" onclick="detail(this.value)">Detail
             </button>
             <a th:href="@{/blog/update/{id}(id=${blog.id})}" class="btn btn-primary " role="button"
                aria-disabled="true">update</a>
@@ -80,9 +80,8 @@
 </div>
 </body>
 <script>
-    function detail() {
+    function detail(id) {
         debugger
-        let id = $('#detail').attr('value');
         $.ajax({
             type: "GET",
             url: `http://localhost:8080/api/blog/` + id,

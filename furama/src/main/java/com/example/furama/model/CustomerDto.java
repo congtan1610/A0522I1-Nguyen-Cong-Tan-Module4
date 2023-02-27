@@ -1,33 +1,20 @@
 package com.example.furama.model;
 
-import jakarta.persistence.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
-
-
-@Entity
-public class Customer {
-    @Id
-    @GeneratedValue
+public class CustomerDto {
     private Long id;
     private String name;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateOfBirth;
+    private String dateOfBirth;
     private Byte gender;
     private String idCard;
     private String phoneNumber;
     private String email;
     private String address;
-
-    @ManyToOne
-    @JoinColumn (name = "typeId")
     private CustomerType customerType;
 
-    public Customer() {
+    public CustomerDto() {
     }
 
-    public Customer(Long id, String name, Date dateOfBirth, Byte gender, String idCard, String phoneNumber, String email, String address, CustomerType customerType) {
+    public CustomerDto(Long id, String name, String dateOfBirth, Byte gender, String idCard, String phoneNumber, String email, String address, CustomerType customerType) {
         this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -55,11 +42,11 @@ public class Customer {
         this.name = name;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
