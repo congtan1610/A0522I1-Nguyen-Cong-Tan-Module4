@@ -22,7 +22,7 @@
 <div class="link">
     <a href="#" class="link_a" style="margin-left:100px">Home</a>
     <a href="#" class="link_a">Employee</a>
-    <a href="#" class="link_a">Customer</a>
+    <a href="/customer" class="link_a">Customer</a>
     <a href="#" class="link_a">Service</a>
     <a href="#" class="link_a">Contract</a>
 </div>
@@ -65,12 +65,12 @@
             <td th:text="${customer.email}"></td>
             <td th:text="${customer.address}"></td>
             <td>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#DetailModal"
+                        id="detail" th:value="${customer.id}" onclick="detailCus(this.value)">Detail</button>
                 <a th:href="@{customer/edit/{id}(id=${customer.id})}" class="btn btn-primary" role="button"
                    aria-disabled="true">Edit</a>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        id="btn_del" th:value="${customer.id}" onclick="deleteCus(this.value)">
-                    Delete
-                </button>
+                        id="btn_del" th:value="${customer.id}" onclick="deleteCus(this.value)">Delete</button>
             </td>
         </tr>
     </table>
@@ -99,8 +99,7 @@
     <center><b>Footer</b></center>
 </footer>
 
-
-<!-- Modal -->
+<!-- Modal Delete-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -113,25 +112,70 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a th:href="@{/customer(page=${customers.number})}" type="button" class="btn btn-primary"
-                   data-bs-dismiss="modal" id="del">Delete</a>
+                <button  type="button" class="btn btn-primary" data-bs-dismiss="modal" id="del" onclick="del(this.value)">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Detail-->
+<div class="modal fade" id="DetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="DetailModalLabel">Customer</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table id="resultDetail">
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 </body>
 <script>
+    function detailCus(id){
+        $.ajax({
+            type: "GET",
+            url: `http://localhost:8080/api/customer/find/` + id,
+            success: function (data) {
+                let content =getCustomer(data);
+                document.getElementById('resultDetail').innerHTML = content;
+            },
+            error: function (params) {
+                alert("error");
+            }
+        })
+    }
+    function getCustomer(customer){
+        let gender;
+        if (customer.gender==1){
+             gender="Nam";
+        }else {
+             gender="Nữ";
+        }
+        return `<tr><th>id</th><td>${customer.id}</td></tr>` +
+            `<tr><th>name</th><td>${customer.name}</td></tr>` +
+            `<tr><th>date of birth</th><td>${customer.dateOfBirth}</td></tr>` +
+            `<tr><th>gender</th><td>${gender}</td></tr>` +
+            `<tr><th>email</th><td>${customer.email}</td></tr>` +
+            `<tr><th>id card</th><td>${customer.idCard}</td></tr>` +
+            `<tr><th>phone number</th><td>${customer.phoneNumber}</td></tr>` +
+            `<tr><th>address</th><td>${customer.address}</td></tr>` +
+            `<tr><th>type customer</th><td>${customer.customerType.name}</td></tr>`;
+    }
     function deleteCus(id) {
         $.ajax({
             type: "GET",
             url: `http://localhost:8080/api/customer/find/` + id,
             success: function (data) {
-                debugger
                 let content = "Are you sure you want to delete " + data.name + " ?";
                 document.getElementById('result').innerHTML = content;
-                if ($('#del').onclick) {
-                    del(id);
-                }
+                $('#del').attr('value',id);
             },
             error: function (params) {
                 alert("error");
@@ -144,6 +188,7 @@
             type: "DELETE",
             url: `http://localhost:8080/api/customer/delete/` + id,
             success: function (data) {
+                location.reload();
             },
             error: function (params) {
             }

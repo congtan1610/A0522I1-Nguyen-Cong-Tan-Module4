@@ -7,12 +7,12 @@ import com.example.furama.service.implement.CustomerServiceImpl;
 import com.example.furama.service.implement.CustomerTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.xml.crypto.Data;
 import java.sql.Date;
 
 
@@ -27,10 +27,12 @@ public class CustomerController {
     @GetMapping("")
     public String find(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "nameCustomer", defaultValue = "") String name) {
         if (!name.isEmpty()) {
-            model.addAttribute("customers", customerService.findAllWithName(PageRequest.of(page, 2), name));
+            Sort sort=Sort.by("id").ascending();
+            model.addAttribute("customers", customerService.findAllWithName(PageRequest.of(page, 2,sort), name));
             model.addAttribute("nameCustomer", name);
         } else {
-            model.addAttribute("customers", customerService.findAllWithPage(PageRequest.of(page, 2)));
+            Sort sort=Sort.by("id").ascending();
+            model.addAttribute("customers", customerService.findAllWithPage(PageRequest.of(page, 2,sort)));
         }
         return "ListCustomer";
     }
