@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Add new facility</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/file_bootstrap5/bootstrap.min.css">
+    <link rel="stylesheet" href="/file_css/customerAddAndUp.css">
+    <script src="/file_bootstrap5/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+<header>
+    <div class="logo">
+        <img src="http://placehold.it" width="50" height="50"><br>
+        <center><b>Logo</b></center>
+    </div>
+    <b class="user">Nguyễn Văn A</b>
+</header>
+<div class="link">
+    <a href="#" class="link_a" style="margin-left:100px">Home</a>
+    <a href="#" class="link_a">Employee</a>
+    <a href="/customer" class="link_a">Customer</a>
+    <a href="#" class="link_a">Service</a>
+    <a href="#" class="link_a">Contract</a>
+</div>
+<div class="content"  style="height: 400px">
+    <center><b>Add New Facility</b></center><br>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#VillaModal">Villa</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#HouseModal">House</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#RoomModal">Room</button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade " id="VillaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="VillaModalLabel">New Facility Villa</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form th:object="${facility}" method="post" action="/facility/addFacility">
+                <div class="modal-body">
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Facility Type</label>
+                                    <input type="text" disabled value="Villa" class="form-control">
+                                    <select hidden class="form-select" th:field="*{facilityType}">
+                                        <option th:each="type:${facilityTypes}" th:text="${type.name}"
+                                                th:value="${type.id}" th:if="${type.id==1}"></option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Name</label>
+                                    <input th:field="*{name}" type="text" class="form-control"
+                                           placeholder="Enter your name">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="mb-3">
+                                    <label class="form-label">Rent Type</label>
+                                    <select class="form-select" th:field="*{rentType}">
+                                        <option th:each="type:${rentTypes}" th:text="${type.name}"
+                                                th:value="${type.id}"></option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Area</label>
+                                    <input th:field="*{area}" type="text" class="form-control"
+                                           placeholder="Enter your area">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Cost</label>
+                                    <input th:field="*{cost}" type="text" class="form-control"
+                                           placeholder="Enter your cost">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Max People</label>
+                                    <input th:field="*{maxPeople}" type="text" class="form-control"
+                                           placeholder="Enter your people">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Standard Room</label>
+                                    <input th:field="*{standardRoom}" type="text" class="form-control"
+                                           placeholder="Enter your phone Standard Room">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Description Other Convenience</label>
+                                    <input th:field="*{descriptionOtherConvenience}" type="text" class="form-control"
+                                           placeholder="Enter your Description Other Convenience">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Pool Area</label>
+                                    <input th:field="*{poolArea}" type="text" class="form-control"
+                                           placeholder="Enter your Pool Area">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Number Of Floors</label>
+                                    <input th:field="*{numberOfFloors}" type="text" class="form-control"
+                                           placeholder="Enter your Number Of Floors">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="HouseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="HouseModalLabel">New Facility House</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form th:object="${facility}" method="post" action="/facility/addFacility">
+                <div class="modal-body">
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Facility Type</label>
+                                    <input type="text" value="House" disabled class="form-control"/>
+                                    <select hidden class="form-select" th:field="*{facilityType}">
+                                        <option th:each="type:${facilityTypes}" th:text="${type.name}"
+                                                th:value="${type.id}" th:if="${type.id==2}"></option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Name</label>
+                                    <input th:field="*{name}" type="text" class="form-control"
+                                           placeholder="Enter your name">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="mb-3">
+                                    <label class="form-label">Rent Type</label>
+                                    <select class="form-select" th:field="*{rentType}">
+                                        <option th:each="type:${rentTypes}" th:text="${type.name}"
+                                                th:value="${type.id}"></option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Area</label>
+                                    <input th:field="*{area}" type="text" class="form-control"
+                                           placeholder="Enter your area">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Cost</label>
+                                    <input th:field="*{cost}" type="text" class="form-control"
+                                           placeholder="Enter your cost">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Max People</label>
+                                    <input th:field="*{maxPeople}" type="text" class="form-control"
+                                           placeholder="Enter your people">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Standard Room</label>
+                                    <input th:field="*{standardRoom}" type="text" class="form-control"
+                                           placeholder="Enter your phone Standard Room">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Description Other Convenience</label>
+                                    <input th:field="*{descriptionOtherConvenience}" type="text" class="form-control"
+                                           placeholder="Enter your Description Other Convenience">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Number Of Floors</label>
+                                    <input th:field="*{numberOfFloors}" type="text" class="form-control"
+                                           placeholder="Enter your Number Of Floors">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="RoomModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="RoomModalLabel">New Facility Room</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form th:object="${facility}" method="post" action="/facility/addFacility">
+                <div class="modal-body">
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Facility Type</label>
+                                    <input type="text" disabled value="Room" class="form-control">
+                                    <select hidden class="form-select" th:field="*{facilityType}">
+                                        <option th:each="type:${facilityTypes}" th:text="${type.name}"
+                                                th:value="${type.id}" th:if="${type.id==3 }"></option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Name</label>
+                                    <input th:field="*{name}" type="text" class="form-control"
+                                           placeholder="Enter your name">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="mb-3">
+                                    <label class="form-label">Rent Type</label>
+                                    <select class="form-select" th:field="*{rentType}">
+                                        <option th:each="type:${rentTypes}" th:text="${type.name}"
+                                                th:value="${type.id}"></option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Area</label>
+                                    <input th:field="*{area}" type="text" class="form-control"
+                                           placeholder="Enter your area">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Cost</label>
+                                    <input th:field="*{cost}" type="text" class="form-control"
+                                           placeholder="Enter your cost">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Max People</label>
+                                    <input th:field="*{maxPeople}" type="text" class="form-control"
+                                           placeholder="Enter your people">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="mb-3 ">
+                                    <label class="form-label">Facility Free</label>
+                                    <input th:field="*{facilityFree}" type="text" class="form-control"
+                                           placeholder="Enter your Facility Free">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" >Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<footer>
+    <center><b>Footer</b></center>
+</footer>
+</body>
+</html>

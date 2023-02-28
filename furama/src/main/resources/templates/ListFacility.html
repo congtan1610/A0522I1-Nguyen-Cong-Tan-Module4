@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>List Facility</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/file_bootstrap5/bootstrap.min.css">
+    <script src="/file_bootstrap5/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/file_css/listCustomer.css">
+</head>
+
+<body class="container-fluid">
+<header>
+    <div class="logo">
+        <img src="http://placehold.it" width="50" height="50"><br>
+        <center><b>Logo</b></center>
+    </div>
+    <b class="user">Nguyễn Văn A</b>
+</header>
+<div class="link">
+    <a href="#" class="link_a" style="margin-left:100px">Home</a>
+    <a href="#" class="link_a">Employee</a>
+    <a href="/customer" class="link_a">Customer</a>
+    <a href="#" class="link_a">Service</a>
+    <a href="#" class="link_a">Contract</a>
+</div>
+<div class="content">
+    <center style="font-size: larger;"><b>List Facility</b></center>
+    <form th:action="@{/facility}" style="float: left;margin-left: 20px">
+        <input name="nameFacility" type="text" placeholder="enter your name"/>
+        <input type="submit" class="btn btn-primary" role="button" aria-disabled="true" value="Search"/>
+    </form>
+    <b style="color: red;float: left;" th:if="${mess}" th:text="${mess}"></b>
+    <a th:href="@{/facility/addFacility}" class="btn btn-primary" role="button" aria-disabled="true"
+       style="float: right;margin-right: 20px;margin-bottom: 10px">Add New</a>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Area</th>
+            <th>Facility Type</th>
+            <th>Rent Type</th>
+            <th>Cost</th>
+            <th>Max People</th>
+            <th>Standard Room</th>
+            <th>Description Other Convenience</th>
+            <th>Pool Area</th>
+            <th>Number Of Floors</th>
+            <th>Facility Free</th>
+        </tr>
+        <tr th:if="${facilitys.isEmpty()}">
+            <td colspan="10">Not found</td>
+        </tr>
+        <tr th:each="facility:${facilitys}">
+            <td th:text="${facility.id}"></td>
+            <td th:text="${facility.name}"></td>
+            <td th:text="${facility.area}"></td>
+            <td th:text="${facility.facilityType.name}"></td>
+            <td th:text="${facility.rentType.name}"></td>
+            <td th:text="${facility.cost}"></td>
+            <td th:text="${facility.maxPeople}"></td>
+            <td th:if="${facility.standardRoom}" th:text="${facility.standardRoom}"></td>
+            <td th:if="${facility.standardRoom==null}">null</td>
+            <td th:if="${facility.descriptionOtherConvenience}" th:text="${facility.descriptionOtherConvenience}"></td>
+            <td th:if="${facility.descriptionOtherConvenience==null}">null</td>
+            <td th:if="${facility.poolArea}" th:text="${facility.poolArea}"></td>
+            <td th:if="${facility.poolArea==null}">null</td>
+            <td th:if="${facility.numberOfFloors}" th:text="${facility.numberOfFloors}"></td>
+            <td th:if="${facility.numberOfFloors==null}">null</td>
+            <td th:if="${facility.facilityFree}" th:text="${facility.facilityFree}"></td>
+            <td th:if="${facility.facilityFree==null}">null</td>
+            <td>
+<!--                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#DetailModal"-->
+<!--                        id="detail" th:value="${customer.id}" onclick="detailCus(this.value)">Detail</button>-->
+<!--                <a th:href="@{customer/edit/{id}(id=${customer.id})}" class="btn btn-primary" role="button"-->
+<!--                   aria-disabled="true">Edit</a>-->
+<!--                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"-->
+<!--                        id="btn_del" th:value="${customer.id}" onclick="deleteCus(this.value)">Delete</button>-->
+            </td>
+        </tr>
+    </table>
+    <!--    phan trang-->
+    <center>
+        <div th:if="${!facilitys.isEmpty()}" style="margin-top: 50px">
+            <a class="btn btn-primary btn-sm" role="button" aria-disabled="true"
+               th:href="@{/facility(page=${facilitys.number - 1},nameFacility=${nameFacility})}"
+               th:if="${facilitys.hasPrevious()}">Previous</a>
+            <span th:href="${facilitys.isEmpty()}" th:each="pageNo:${#numbers.sequence(0,facilitys.totalPages-1)}">
+                <a th:if="${!(facilitys.number==pageNo)}" class="btn btn-primary btn-sm" role="button"
+                   aria-disabled="true"
+                   th:href="@{/facility(page=${pageNo},nameFacility=${nameFacility})}" th:text="${pageNo}"/>
+                <a th:if="${(facilitys.number==pageNo)}" class="btn btn-primary btn-sm" role="button"
+                   aria-disabled="true"
+                   th:href="@{/facility(page=${pageNo},nameFacility=${nameFacility})}" th:text="${pageNo}"
+                   style="background-color: red"/>
+            </span>
+            <a class="btn btn-primary btn-sm" role="button" aria-disabled="true"
+               th:href="@{/facility(page=${facilitys.number + 1},nameFacility=${nameFacility})}"
+               th:if="${facilitys.hasNext()}">Next</a>
+        </div>
+    </center>
+</div>
+<footer>
+    <center><b>Footer</b></center>
+</footer>
+
+<!-- Modal Delete-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Customer</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <b id="result"></b>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button  type="button" class="btn btn-primary" data-bs-dismiss="modal" id="del" onclick="del(this.value)">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Detail-->
+<div class="modal fade" id="DetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="DetailModalLabel">Customer</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table id="resultDetail">
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function detailCus(id){
+        $.ajax({
+            type: "GET",
+            url: `http://localhost:8080/api/customer/find/` + id,
+            success: function (data) {
+                let content =getCustomer(data);
+                document.getElementById('resultDetail').innerHTML = content;
+            },
+            error: function (params) {
+                alert("error");
+            }
+        })
+    }
+    function getCustomer(customer){
+        let gender;
+        if (customer.gender==1){
+            gender="Nam";
+        }else {
+            gender="Nữ";
+        }
+        return `<tr><th>id</th><td>${customer.id}</td></tr>` +
+            `<tr><th>name</th><td>${customer.name}</td></tr>` +
+            `<tr><th>date of birth</th><td>${customer.dateOfBirth}</td></tr>` +
+            `<tr><th>gender</th><td>${gender}</td></tr>` +
+            `<tr><th>email</th><td>${customer.email}</td></tr>` +
+            `<tr><th>id card</th><td>${customer.idCard}</td></tr>` +
+            `<tr><th>phone number</th><td>${customer.phoneNumber}</td></tr>` +
+            `<tr><th>address</th><td>${customer.address}</td></tr>` +
+            `<tr><th>type customer</th><td>${customer.customerType.name}</td></tr>`;
+    }
+    function deleteCus(id) {
+        $.ajax({
+            type: "GET",
+            url: `http://localhost:8080/api/customer/find/` + id,
+            success: function (data) {
+                let content = "Are you sure you want to delete " + data.name + " ?";
+                document.getElementById('result').innerHTML = content;
+                $('#del').attr('value',id);
+            },
+            error: function (params) {
+                alert("error");
+            }
+        })
+    }
+
+    function del(id) {
+        $.ajax({
+            type: "DELETE",
+            url: `http://localhost:8080/api/customer/delete/` + id,
+            success: function (data) {
+                location.reload();
+            },
+            error: function (params) {
+            }
+        })
+    }
+</script>
+</html>
