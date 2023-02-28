@@ -1,8 +1,8 @@
-package com.example.furama.service.implement;
+package com.example.furama.service.customer.implement;
 
-import com.example.furama.model.CustomerType;
-import com.example.furama.repository.ICustomerTypeRepository;
-import com.example.furama.service.ICustomerTypeService;
+import com.example.furama.model.customer.CustomerType;
+import com.example.furama.repository.customer.ICustomerTypeRepository;
+import com.example.furama.service.customer.ICustomerTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

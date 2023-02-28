@@ -1,14 +1,12 @@
-package com.example.furama.controller;
+package com.example.furama.controller.customer;
 
-import com.example.furama.model.Customer;
-import com.example.furama.service.implement.CustomerServiceImpl;
+import com.example.furama.model.customer.Customer;
+import com.example.furama.service.customer.implement.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController

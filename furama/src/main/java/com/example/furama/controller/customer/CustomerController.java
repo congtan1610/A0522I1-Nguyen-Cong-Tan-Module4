@@ -1,10 +1,10 @@
-package com.example.furama.controller;
+package com.example.furama.controller.customer;
 
 
-import com.example.furama.model.Customer;
-import com.example.furama.model.CustomerDto;
-import com.example.furama.service.implement.CustomerServiceImpl;
-import com.example.furama.service.implement.CustomerTypeServiceImpl;
+import com.example.furama.model.customer.Customer;
+import com.example.furama.model.customer.CustomerDto;
+import com.example.furama.service.customer.implement.CustomerServiceImpl;
+import com.example.furama.service.customer.implement.CustomerTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

@@ -1,4 +1,4 @@
-package com.example.furama.model;
+package com.example.furama.model.customer;
 
 public class CustomerDto {
     private Long id;

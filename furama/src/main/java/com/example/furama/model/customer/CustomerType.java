@@ -1,4 +1,4 @@
-package com.example.furama.model;
+package com.example.furama.model.customer;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

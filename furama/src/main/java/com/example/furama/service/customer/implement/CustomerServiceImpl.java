@@ -1,8 +1,8 @@
-package com.example.furama.service.implement;
+package com.example.furama.service.customer.implement;
 
-import com.example.furama.model.Customer;
-import com.example.furama.repository.ICustomerRepository;
-import com.example.furama.service.ICustomerService;
+import com.example.furama.model.customer.Customer;
+import com.example.furama.repository.customer.ICustomerRepository;
+import com.example.furama.service.customer.ICustomerService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

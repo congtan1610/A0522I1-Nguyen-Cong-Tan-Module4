@@ -1,6 +1,6 @@
-package com.example.furama.service;
+package com.example.furama.service.customer;
 
-import com.example.furama.model.Customer;
+import com.example.furama.model.customer.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
