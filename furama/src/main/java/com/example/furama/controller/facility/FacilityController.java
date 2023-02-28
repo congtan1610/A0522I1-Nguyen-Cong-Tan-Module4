@@ -44,6 +44,6 @@ public class FacilityController {
     public  String saveFacility(@ModelAttribute Facility facility, RedirectAttributes redirectAttributes){
        facilityService.save(facility);
         redirectAttributes.addFlashAttribute("mess", "Add success");
-        return "redirect:/ListFacility";
+        return "redirect:/facility";
     }
 }
