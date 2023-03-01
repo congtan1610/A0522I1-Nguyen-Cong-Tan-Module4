@@ -12,4 +12,6 @@ public interface IFacitilyRepository extends JpaRepository<Facility,Long> {
     @Query(value = "select * from Facility ",countQuery = "select * from Facility ",nativeQuery = true)
     Page<Facility> findAllWithPage(Pageable pageable);
     Page<Facility> findAllByNameContaining(Pageable pageable,String name);
+    Page<Facility> findAllByNameContainingAndFacilityTypeNameContaining(Pageable pageable, String name, String nameType);
+    Page<Facility> findAllByFacilityTypeNameContaining(Pageable pageable,String name);
 }

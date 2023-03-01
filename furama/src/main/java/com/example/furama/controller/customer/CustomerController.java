@@ -5,11 +5,13 @@ import com.example.furama.model.customer.Customer;
 import com.example.furama.model.customer.CustomerDto;
 import com.example.furama.service.customer.implement.CustomerServiceImpl;
 import com.example.furama.service.customer.implement.CustomerTypeServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -27,12 +29,12 @@ public class CustomerController {
     @GetMapping("")
     public String find(Model model, @RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "nameCustomer", defaultValue = "") String name) {
         if (!name.isEmpty()) {
-            Sort sort=Sort.by("id").ascending();
-            model.addAttribute("customers", customerService.findAllWithName(PageRequest.of(page, 2,sort), name));
+            Sort sort = Sort.by("id").ascending();
+            model.addAttribute("customers", customerService.findAllWithName(PageRequest.of(page, 2, sort), name));
             model.addAttribute("nameCustomer", name);
         } else {
-            Sort sort=Sort.by("id").ascending();
-            model.addAttribute("customers", customerService.findAllWithPage(PageRequest.of(page, 2,sort)));
+            Sort sort = Sort.by("id").ascending();
+            model.addAttribute("customers", customerService.findAllWithPage(PageRequest.of(page, 2, sort)));
         }
         return "ListCustomer";
     }
@@ -44,8 +46,14 @@ public class CustomerController {
         return "AddNewCustomer";
     }
 
-    @PostMapping("/addCustomer")
-    public String save(RedirectAttributes redirectAttributes, @ModelAttribute("customer") CustomerDto customerDto) {
+    @PostMapping("/save")
+    public String save( Model model,RedirectAttributes redirectAttributes, @Valid @ModelAttribute("customer") CustomerDto customerDto, BindingResult bindingResult) {
+        new CustomerDto().validate(customerDto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("customer", customerDto);
+            model.addAttribute("types", customerTypeService.findAll());
+            return "AddNewCustomer";
+        }
         Customer customer = new Customer();
         customer.setDateOfBirth(Date.valueOf(customerDto.getDateOfBirth()));
         customer.setGender(customerDto.getGender());
@@ -67,6 +75,7 @@ public class CustomerController {
         model.addAttribute("types", customerTypeService.findAll());
         return "UpdateCustomer";
     }
+
     @PostMapping("/updateCustomer")
     public String update(RedirectAttributes redirectAttributes, @ModelAttribute("customer") CustomerDto customerDto) {
         Customer customer = new Customer();

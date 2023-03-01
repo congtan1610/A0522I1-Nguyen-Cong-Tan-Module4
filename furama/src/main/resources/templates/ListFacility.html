@@ -29,7 +29,16 @@
 <div class="content">
     <center style="font-size: larger;"><b>List Facility</b></center>
     <form th:action="@{/facility}" style="float: left;margin-left: 20px">
-        <input name="nameFacility" type="text" placeholder="enter your name"/>
+        <label>name</label>
+        <input name="nameFacility" th:value="${nameFacility}" type="text" placeholder="enter your name"/>
+        <label>facility</label>
+        <select name="nameFacilityType" >
+            <option th:if="${nameFacilityType}" th:text="${nameFacilityType}"></option>
+            <option th:if="${!(nameFacilityType=='All')}" >All</option>
+            <option th:if="${!(nameFacilityType=='Villa')}" >Villa</option>
+            <option th:if="${!(nameFacilityType=='Room')}">Room</option>
+            <option th:if="${!(nameFacilityType=='House')}">House</option>
+        </select>
         <input type="submit" class="btn btn-primary" role="button" aria-disabled="true" value="Search"/>
     </form>
     <b style="color: red;float: left;" th:if="${mess}" th:text="${mess}"></b>
@@ -85,19 +94,19 @@
     <center>
         <div th:if="${!facilitys.isEmpty()}" style="margin-top: 50px">
             <a class="btn btn-primary btn-sm" role="button" aria-disabled="true"
-               th:href="@{/facility(page=${facilitys.number - 1},nameFacility=${nameFacility})}"
+               th:href="@{/facility(page=${facilitys.number - 1},nameFacility=${nameFacility},nameFacilityType=${nameFacilityType})}"
                th:if="${facilitys.hasPrevious()}">Previous</a>
             <span th:href="${facilitys.isEmpty()}" th:each="pageNo:${#numbers.sequence(0,facilitys.totalPages-1)}">
                 <a th:if="${!(facilitys.number==pageNo)}" class="btn btn-primary btn-sm" role="button"
                    aria-disabled="true"
-                   th:href="@{/facility(page=${pageNo},nameFacility=${nameFacility})}" th:text="${pageNo}"/>
+                   th:href="@{/facility(page=${pageNo},nameFacility=${nameFacility},nameFacilityType=${nameFacilityType})}" th:text="${pageNo}"/>
                 <a th:if="${(facilitys.number==pageNo)}" class="btn btn-primary btn-sm" role="button"
                    aria-disabled="true"
-                   th:href="@{/facility(page=${pageNo},nameFacility=${nameFacility})}" th:text="${pageNo}"
+                   th:href="@{/facility(page=${pageNo},nameFacility=${nameFacility},nameFacilityType=${nameFacilityType})}" th:text="${pageNo}"
                    style="background-color: red"/>
             </span>
             <a class="btn btn-primary btn-sm" role="button" aria-disabled="true"
-               th:href="@{/facility(page=${facilitys.number + 1},nameFacility=${nameFacility})}"
+               th:href="@{/facility(page=${facilitys.number + 1},nameFacility=${nameFacility},nameFacilityType=${nameFacilityType})}"
                th:if="${facilitys.hasNext()}">Next</a>
         </div>
     </center>

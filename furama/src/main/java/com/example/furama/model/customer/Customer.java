@@ -2,7 +2,6 @@ package com.example.furama.model.customer;
 
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
 
 
@@ -21,7 +20,7 @@ public class Customer {
     private String address;
 
     @ManyToOne
-    @JoinColumn (name = "typeId")
+    @JoinColumn(name = "typeId")
     private CustomerType customerType;
 
     public Customer() {
@@ -110,4 +109,5 @@ public class Customer {
     public void setCustomerType(CustomerType customerType) {
         this.customerType = customerType;
     }
+
 }

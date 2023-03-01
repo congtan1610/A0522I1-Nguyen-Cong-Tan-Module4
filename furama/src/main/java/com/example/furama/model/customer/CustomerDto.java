@@ -1,13 +1,37 @@
 package com.example.furama.model.customer;
 
-public class CustomerDto {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Date;
+
+
+public class CustomerDto implements Validator {
     private Long id;
+    @NotBlank(message = "cannot be left blank")
+    @Size(max = 45, message = "Do not exceed 45 characters")
+    @Pattern(regexp = "^([A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸ]+([a-zàáâãèéêìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]*)\\s)+[A-ZA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸ]+([a-za-zàáâãèéêìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]*)+\\s*?$",message = "name failed")
     private String name;
+    @NotBlank(message = "cannot be left blank")
     private String dateOfBirth;
     private Byte gender;
+    @NotBlank(message = "cannot be left blank")
+    @Pattern(regexp = "^([\\d]{9}|[\\d]{12})$",message = "id card failed")
     private String idCard;
+    @NotBlank(message = "cannot be left blank")
+    @Pattern(regexp = "^(090|091|(84)+90|(84)+91)[\\d]{7}$",message = "phone number failed")
     private String phoneNumber;
+    @NotBlank(message = "cannot be left blank")
+    @Pattern(regexp = "[\\w.]+@[\\w]+([.][\\w]+){1,2}$",message = "email failed")
     private String email;
+    @NotBlank(message = "cannot be left blank")
     private String address;
     private CustomerType customerType;
 
@@ -96,5 +120,25 @@ public class CustomerDto {
 
     public void setCustomerType(CustomerType customerType) {
         this.customerType = customerType;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        CustomerDto customer = (CustomerDto) target;
+        Date birthDate= null;
+        try {
+            birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(customer.dateOfBirth);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        LocalDate temp= birthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if (Math.abs(Period.between(java.time.LocalDate.now(),temp).getYears()) <18) {
+           errors.rejectValue("dateOfBirth", "", "younger than 18 years old");
+        }
     }
 }
