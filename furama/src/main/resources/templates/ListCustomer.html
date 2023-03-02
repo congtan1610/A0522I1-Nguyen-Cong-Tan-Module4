@@ -175,6 +175,8 @@
             success: function (data) {
                 let content = "Are you sure you want to delete " + data.name + " ?";
                 document.getElementById('result').innerHTML = content;
+
+                //gán id="del" có giá trị là id truyền vào
                 $('#del').attr('value',id);
             },
             error: function (params) {
