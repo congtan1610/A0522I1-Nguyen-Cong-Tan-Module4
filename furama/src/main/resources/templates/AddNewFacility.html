@@ -26,15 +26,364 @@
     <a href="/facility" class="link_a">Service</a>
     <a href="#" class="link_a">Contract</a>
 </div>
-<div class="content"  style="height: 400px">
-    <center><b>Add New Facility</b></center><br>
-
+<div class="content">
+    <center><b>Add New Facility</b></center>
+    <br>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#VillaModal">Villa</button>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#HouseModal">House</button>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#RoomModal">Room</button>
+    <div th:if="${type.equals('add')}" style="height: 340px">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#VillaModal">Villa
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#HouseModal">House
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#RoomModal">Room
+        </button>
+    </div>
+<!--    //khi co err villa-->
+    <center>
+        <div th:if="${type.equals('Villa')}">
+            <form th:object="${facility}" method="post" action="/facility/addFacility">
+                <table style="width: 70%">
+                    <tr>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Facility Type</label>
+                                <input type="text" disabled value="Villa" class="form-control">
+                                <select hidden class="form-select" th:field="*{facilityType}">
+                                    <option th:each="type:${facilityTypes}" th:text="${type.name}"
+                                            th:value="${type.id}" th:if="${type.id==1}"></option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Name</label>
+                                <input th:field="*{name}" type="text" class="form-control"
+                                       placeholder="Enter your name">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="mb-3">
+                                <label class="form-label">Rent Type</label>
+                                <select class="form-select" th:field="*{rentType}">
+                                    <option th:each="type:${rentTypes}" th:text="${type.name}"
+                                            th:value="${type.id}"></option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Area</label>
+                                <input th:field="*{area}" type="text" class="form-control"
+                                       placeholder="Enter your area">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Cost</label>
+                                <input th:field="*{cost}" type="text" class="form-control"
+                                       placeholder="Enter your cost">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Max People</label>
+                                <input th:field="*{maxPeople}" type="text" class="form-control"
+                                       placeholder="Enter your people">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}"></p></td>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('maxPeople')}"
+                               th:errors="*{maxPeople}"></p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Standard Room</label>
+                                <input th:field="*{standardRoom}" type="text" class="form-control"
+                                       placeholder="Enter your phone Standard Room">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Description Other Convenience</label>
+                                <input th:field="*{descriptionOtherConvenience}" type="text" class="form-control"
+                                       placeholder="Enter your Description Other Convenience">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('standardRoom')}"
+                               th:errors="*{standardRoom}"></p></td>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('descriptionOtherConvenience')}"
+                               th:errors="*{descriptionOtherConvenience}"></p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Pool Area</label>
+                                <input th:field="*{poolArea}" type="text" class="form-control"
+                                       placeholder="Enter your Pool Area">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Number Of Floors</label>
+                                <input th:field="*{numberOfFloors}" type="text" class="form-control"
+                                       placeholder="Enter your Number Of Floors">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('poolArea')}"
+                               th:errors="*{poolArea}"></p></td>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('numberOfFloors')}"
+                               th:errors="*{numberOfFloors}"></p></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" class="btn btn-primary" role="button"
+                                   aria-disabled="true" style="float: right" value="Add">
+                            <a th:href="@{/facility}" class="btn btn-primary" role="button"
+                               aria-disabled="true" style="float:right;margin-right: 20px">Back</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </center>
+<!--    //khi co err house-->
+    <center>
+        <div th:if="${type.equals('House')}">
+            <form th:object="${facility}" method="post" action="/facility/addFacility">
+                <table style="width: 70%">
+                    <tr>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Facility Type</label>
+                                <input type="text" disabled value="House" class="form-control">
+                                <select hidden class="form-select" th:field="*{facilityType}">
+                                    <option th:each="type:${facilityTypes}" th:text="${type.name}"
+                                            th:value="${type.id}" th:if="${type.id==2}"></option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Name</label>
+                                <input th:field="*{name}" type="text" class="form-control"
+                                       placeholder="Enter your name">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="mb-3">
+                                <label class="form-label">Rent Type</label>
+                                <select class="form-select" th:field="*{rentType}">
+                                    <option th:each="type:${rentTypes}" th:text="${type.name}"
+                                            th:value="${type.id}"></option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Area</label>
+                                <input th:field="*{area}" type="text" class="form-control"
+                                       placeholder="Enter your area">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Cost</label>
+                                <input th:field="*{cost}" type="text" class="form-control"
+                                       placeholder="Enter your cost">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Max People</label>
+                                <input th:field="*{maxPeople}" type="text" class="form-control"
+                                       placeholder="Enter your people">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}"></p></td>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('maxPeople')}"
+                               th:errors="*{maxPeople}"></p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Standard Room</label>
+                                <input th:field="*{standardRoom}" type="text" class="form-control"
+                                       placeholder="Enter your phone Standard Room">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Description Other Convenience</label>
+                                <input th:field="*{descriptionOtherConvenience}" type="text" class="form-control"
+                                       placeholder="Enter your Description Other Convenience">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('standardRoom')}"
+                               th:errors="*{standardRoom}"></p></td>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('descriptionOtherConvenience')}"
+                               th:errors="*{descriptionOtherConvenience}"></p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Number Of Floors</label>
+                                <input th:field="*{numberOfFloors}" type="text" class="form-control"
+                                       placeholder="Enter your Number Of Floors">
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('numberOfFloors')}"
+                               th:errors="*{numberOfFloors}"></p></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" class="btn btn-primary" role="button"
+                                   aria-disabled="true" style="float: right" value="Add">
+                            <a th:href="@{/facility}" class="btn btn-primary" role="button"
+                               aria-disabled="true" style="float:right;margin-right: 20px">Back</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </center>
+<!--    //khi co err room-->
+    <center>
+        <div th:if="${type.equals('Room')}">
+            <form th:object="${facility}" method="post" action="/facility/addFacility">
+                <table style="width: 70%">
+                    <tr>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Facility Type</label>
+                                <input type="text" disabled value="Room" class="form-control">
+                                <select hidden class="form-select" th:field="*{facilityType}">
+                                    <option th:each="type:${facilityTypes}" th:text="${type.name}"
+                                            th:value="${type.id}" th:if="${type.id==3}"></option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Name</label>
+                                <input th:field="*{name}" type="text" class="form-control"
+                                       placeholder="Enter your name">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="mb-3">
+                                <label class="form-label">Rent Type</label>
+                                <select class="form-select" th:field="*{rentType}">
+                                    <option th:each="type:${rentTypes}" th:text="${type.name}"
+                                            th:value="${type.id}"></option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Area</label>
+                                <input th:field="*{area}" type="text" class="form-control"
+                                       placeholder="Enter your area">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Cost</label>
+                                <input th:field="*{cost}" type="text" class="form-control"
+                                       placeholder="Enter your cost">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Max People</label>
+                                <input th:field="*{maxPeople}" type="text" class="form-control"
+                                       placeholder="Enter your max people">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}"></p></td>
+                        <td><p style="color: red" th:if="${#fields.hasErrors('maxPeople')}"
+                               th:errors="*{maxPeople}"></p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="mb-3 ">
+                                <label class="form-label">Facility Free</label>
+                                <input th:field="*{facilityFree}" type="text" class="form-control"
+                                       placeholder="Enter your facilityFree">
+                                <p style="color: red" th:if="${#fields.hasErrors('facilityFree')}"
+                                   th:errors="*{facilityFree}"></p>
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" class="btn btn-primary" role="button"
+                                   aria-disabled="true" style="float: right" value="Add">
+                            <a th:href="@{/facility}" class="btn btn-primary" role="button"
+                               aria-disabled="true" style="float:right;margin-right: 20px">Back</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </center>
 </div>
-
 <!-- Modal -->
 <div class="modal fade " id="VillaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -62,6 +411,7 @@
                                     <label class="form-label">Name</label>
                                     <input th:field="*{name}" type="text" class="form-control"
                                            placeholder="Enter your name">
+                                    <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                                 </div>
                             </td>
                         </tr>
@@ -80,6 +430,7 @@
                                     <label class="form-label">Area</label>
                                     <input th:field="*{area}" type="text" class="form-control"
                                            placeholder="Enter your area">
+                                    <p style="color: red" th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></p>
                                 </div>
                             </td>
                         </tr>
@@ -89,6 +440,7 @@
                                     <label class="form-label">Cost</label>
                                     <input th:field="*{cost}" type="text" class="form-control"
                                            placeholder="Enter your cost">
+                                    <p style="color: red" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}"></p>
                                 </div>
                             </td>
                             <td>
@@ -96,6 +448,8 @@
                                     <label class="form-label">Max People</label>
                                     <input th:field="*{maxPeople}" type="text" class="form-control"
                                            placeholder="Enter your people">
+                                    <p style="color: red" th:if="${#fields.hasErrors('maxPeople')}"
+                                       th:errors="*{maxPeople}"></p>
                                 </div>
                             </td>
                         </tr>
@@ -105,6 +459,8 @@
                                     <label class="form-label">Standard Room</label>
                                     <input th:field="*{standardRoom}" type="text" class="form-control"
                                            placeholder="Enter your phone Standard Room">
+                                    <p style="color: red" th:if="${#fields.hasErrors('standardRoom')}"
+                                       th:errors="*{standardRoom}"></p>
                                 </div>
                             </td>
                             <td>
@@ -112,6 +468,8 @@
                                     <label class="form-label">Description Other Convenience</label>
                                     <input th:field="*{descriptionOtherConvenience}" type="text" class="form-control"
                                            placeholder="Enter your Description Other Convenience">
+                                    <p style="color: red" th:if="${#fields.hasErrors('descriptionOtherConvenience')}"
+                                       th:errors="*{descriptionOtherConvenience}"></p>
                                 </div>
                             </td>
                         </tr>
@@ -121,6 +479,8 @@
                                     <label class="form-label">Pool Area</label>
                                     <input th:field="*{poolArea}" type="text" class="form-control"
                                            placeholder="Enter your Pool Area">
+                                    <p style="color: red" th:if="${#fields.hasErrors('poolArea')}"
+                                       th:errors="*{poolArea}"></p>
                                 </div>
                             </td>
                             <td>
@@ -128,6 +488,8 @@
                                     <label class="form-label">Number Of Floors</label>
                                     <input th:field="*{numberOfFloors}" type="text" class="form-control"
                                            placeholder="Enter your Number Of Floors">
+                                    <p style="color: red" th:if="${#fields.hasErrors('numberOfFloors')}"
+                                       th:errors="*{numberOfFloors}"></p>
                                 </div>
                             </td>
                         </tr>
@@ -167,6 +529,7 @@
                                     <label class="form-label">Name</label>
                                     <input th:field="*{name}" type="text" class="form-control"
                                            placeholder="Enter your name">
+                                    <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                                 </div>
                             </td>
                         </tr>
@@ -185,6 +548,7 @@
                                     <label class="form-label">Area</label>
                                     <input th:field="*{area}" type="text" class="form-control"
                                            placeholder="Enter your area">
+                                    <p style="color: red" th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></p>
                                 </div>
                             </td>
                         </tr>
@@ -194,6 +558,7 @@
                                     <label class="form-label">Cost</label>
                                     <input th:field="*{cost}" type="text" class="form-control"
                                            placeholder="Enter your cost">
+                                    <p style="color: red" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}"></p>
                                 </div>
                             </td>
                             <td>
@@ -201,6 +566,8 @@
                                     <label class="form-label">Max People</label>
                                     <input th:field="*{maxPeople}" type="text" class="form-control"
                                            placeholder="Enter your people">
+                                    <p style="color: red" th:if="${#fields.hasErrors('maxPeople')}"
+                                       th:errors="*{maxPeople}"></p>
                                 </div>
                             </td>
                         </tr>
@@ -210,6 +577,8 @@
                                     <label class="form-label">Standard Room</label>
                                     <input th:field="*{standardRoom}" type="text" class="form-control"
                                            placeholder="Enter your phone Standard Room">
+                                    <p style="color: red" th:if="${#fields.hasErrors('standardRoom')}"
+                                       th:errors="*{standardRoom}"></p>
                                 </div>
                             </td>
                             <td>
@@ -217,6 +586,8 @@
                                     <label class="form-label">Description Other Convenience</label>
                                     <input th:field="*{descriptionOtherConvenience}" type="text" class="form-control"
                                            placeholder="Enter your Description Other Convenience">
+                                    <p style="color: red" th:if="${#fields.hasErrors('descriptionOtherConvenience')}"
+                                       th:errors="*{descriptionOtherConvenience}"></p>
                                 </div>
                             </td>
                         </tr>
@@ -226,6 +597,8 @@
                                     <label class="form-label">Number Of Floors</label>
                                     <input th:field="*{numberOfFloors}" type="text" class="form-control"
                                            placeholder="Enter your Number Of Floors">
+                                    <p style="color: red" th:if="${#fields.hasErrors('numberOfFloors')}"
+                                       th:errors="*{numberOfFloors}"></p>
                                 </div>
                             </td>
                         </tr>
@@ -265,6 +638,7 @@
                                     <label class="form-label">Name</label>
                                     <input th:field="*{name}" type="text" class="form-control"
                                            placeholder="Enter your name">
+                                    <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                                 </div>
                             </td>
                         </tr>
@@ -283,6 +657,7 @@
                                     <label class="form-label">Area</label>
                                     <input th:field="*{area}" type="text" class="form-control"
                                            placeholder="Enter your area">
+                                    <p style="color: red" th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></p>
                                 </div>
                             </td>
                         </tr>
@@ -292,6 +667,7 @@
                                     <label class="form-label">Cost</label>
                                     <input th:field="*{cost}" type="text" class="form-control"
                                            placeholder="Enter your cost">
+                                    <p style="color: red" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}"></p>
                                 </div>
                             </td>
                             <td>
@@ -299,6 +675,8 @@
                                     <label class="form-label">Max People</label>
                                     <input th:field="*{maxPeople}" type="text" class="form-control"
                                            placeholder="Enter your people">
+                                    <p style="color: red" th:if="${#fields.hasErrors('maxPeople')}"
+                                       th:errors="*{maxPeople}"></p>
                                 </div>
                             </td>
                         </tr>
@@ -308,6 +686,8 @@
                                     <label class="form-label">Facility Free</label>
                                     <input th:field="*{facilityFree}" type="text" class="form-control"
                                            placeholder="Enter your Facility Free">
+                                    <p style="color: red" th:if="${#fields.hasErrors('facilityFree')}"
+                                       th:errors="*{facilityFree}"></p>
                                 </div>
                             </td>
                         </tr>
@@ -315,7 +695,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" >Add</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>
         </div>

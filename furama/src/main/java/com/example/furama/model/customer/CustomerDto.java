@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -17,19 +18,19 @@ public class CustomerDto implements Validator {
     private Long id;
     @NotBlank(message = "cannot be left blank")
     @Size(max = 45, message = "Do not exceed 45 characters")
-    @Pattern(regexp = "^([A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸ]+([a-zàáâãèéêìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]*)\\s)+[A-ZA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴÝỶỸ]+([a-za-zàáâãèéêìíòóôõùúăđĩũơưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]*)+\\s*?$",message = "name failed")
+    @Pattern(regexp = "^[A-Z][a-z]+(\\s[A-Z][a-z]+)*$", message = "name failed")
     private String name;
     @NotBlank(message = "cannot be left blank")
     private String dateOfBirth;
     private Byte gender;
     @NotBlank(message = "cannot be left blank")
-    @Pattern(regexp = "^([\\d]{9}|[\\d]{12})$",message = "id card failed")
+    @Pattern(regexp = "^([\\d]{9}|[\\d]{12})$", message = "id card failed")
     private String idCard;
     @NotBlank(message = "cannot be left blank")
-    @Pattern(regexp = "^(090|091|(84)+90|(84)+91)[\\d]{7}$",message = "phone number failed")
+    @Pattern(regexp = "^(090|091|(84)+90|(84)+91)[\\d]{7}$", message = "phone number failed")
     private String phoneNumber;
     @NotBlank(message = "cannot be left blank")
-    @Pattern(regexp = "[\\w.]+@[\\w]+([.][\\w]+){1,2}$",message = "email failed")
+    @Pattern(regexp = "[\\w.]+@[\\w]+([.][\\w]+){1,2}$", message = "email failed")
     private String email;
     @NotBlank(message = "cannot be left blank")
     private String address;
@@ -130,15 +131,17 @@ public class CustomerDto implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         CustomerDto customer = (CustomerDto) target;
-        Date birthDate= null;
+        Date birthDate = null;
         try {
             birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(customer.dateOfBirth);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        LocalDate temp= birthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        if (Period.between(java.time.LocalDate.now(),temp).getYears()>-18) {
-           errors.rejectValue("dateOfBirth", "", "younger than 18 years old");
+        if (!(birthDate == null)) {
+            LocalDate temp = birthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (Period.between(java.time.LocalDate.now(), temp).getYears() > -18) {
+                errors.rejectValue("dateOfBirth", "", "younger than 18 years old");
+            }
         }
     }
 }

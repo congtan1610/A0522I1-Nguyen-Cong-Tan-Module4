@@ -77,7 +77,13 @@ public class CustomerController {
     }
 
     @PostMapping("/updateCustomer")
-    public String update(RedirectAttributes redirectAttributes, @ModelAttribute("customer") CustomerDto customerDto) {
+    public String update(RedirectAttributes redirectAttributes,@Valid @ModelAttribute("customer") CustomerDto customerDto,BindingResult bindingResult,Model model) {
+        new CustomerDto().validate(customerDto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("customer", customerDto);
+            model.addAttribute("types", customerTypeService.findAll());
+            return "UpdateCustomer";
+        }
         Customer customer = new Customer();
         customer.setDateOfBirth(Date.valueOf(customerDto.getDateOfBirth()));
         customer.setGender(customerDto.getGender());
