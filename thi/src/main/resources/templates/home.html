@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/file_bootstrap5/bootstrap.min.css">
+    <script src="/file_bootstrap5/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<label>Danh Sách Khuyến Mãi</label>
+<form th:action="@{/sale}" style="margin-left: 20px">
+    <label>Mức giảm giá:</label>
+    <input name="range" type="text"/>
+    <label>Ngày bắt đầu:</label>
+    <input name="start" type="date"/>
+    <label>Ngày kết thúc:</label>
+    <input name="end" type="date"/>
+    <input type="submit" class="btn btn-primary" role="button" aria-disabled="true" value="Search"/>
+</form>
+<a th:href="@{/sale/add}" class="btn btn-primary" role="button" aria-disabled="true"
+   style="float: right;margin-right: 20px;margin-bottom: 10px">Thêm khuyến mãi</a>
+<br>
+<b style="color: red;float: left;" th:if="${mess}" th:text="${mess}"></b>
+<table class="table table-striped">
+    <tr>
+        <th>Tiêu đề</th>
+        <th>Thời gian bắt đầu</th>
+        <th>Thời gian kết thúc</th>
+        <th>Mức giảm giá</th>
+        <th>chi tiết</th>
+        <th>sửa</th>
+        <th>xóa</th>
+    </tr>
+    <tr>
+        <td th:if="${sales.isEmpty()}" colspan="7">Not found</td>
+    </tr>
+    <tr th:each="sale:${sales}">
+        <td th:text="${sale.title}"></td>
+        <td th:text="${sale.dateStart}"></td>
+        <td th:text="${sale.dateEnd}"></td>
+        <td th:text="${sale.rangeSale}"></td>
+        <td th:text="${sale.detail}"></td>
+        <td><a th:href="@{/sale/edit/{id}(id=${sale.id})}" class="btn btn-primary" role="button" aria-disabled="true">Sửa</a>
+        </td>
+        <td><a th:href="@{/sale/delete/{id}(id=${sale.id})}" class="btn btn-primary" role="button" aria-disabled="true" th:name="${sale.title}"
+               onclick="return confirm('bạn chắc chắn muốn xóa '+this.name)">xóa</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

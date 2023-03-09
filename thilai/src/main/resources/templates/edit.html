@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/file_bootstrap5/bootstrap.min.css">
+    <script src="/file_bootstrap5/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<center>
+    <form method="post" action="/build/update" th:object="${build}">
+        <center><label>Chỉnh sửa cho đơn hàng mã số </label><input disabled th:field="*{product.id}"></center>
+
+        <table width="70%">
+            <tr>
+                <td>
+                    <div class="mb-3">
+                        <input hidden th:field="*{id}">
+                        <label class="form-label"> Loại sản phẩm</label>
+                        <select class="form-select" th:field="*{product.typeProduct}">
+                            <option th:each="type:${types}" th:text="${type.name}" th:value="${type.id}"></option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div class="mb-3">
+                        <label class="form-label">  sản phẩm</label>
+                        <select class="form-select" th:field="*{product}">
+                            <option th:each="product:${products}" th:text="${product.name}" th:value="${product.id}"></option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="mb-3 ">
+                        <label class="form-label">Ngày mua</label>
+                        <input th:field="*{dayBuy}" type="date" class="form-control">
+                        <p style="color: red" th:if="${#fields.hasErrors('dayBuy')}" th:errors="*{dayBuy}"></p>
+                    </div>
+                </td>
+                <td>
+                    <div class="mb-3 ">
+                        <label class="form-label">Số lượng</label>
+                        <input th:field="*{size}" type="text" class="form-control" >
+                        <p style="color: red" th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <input type="submit" class="btn btn-primary" role="button"
+                           aria-disabled="true" style="float: right" value="Sửa"/>
+                    <input type="button" class="btn btn-primary" style="float: right;margin-right: 10px;" onclick="history.back()" value="Quay lại"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</center>
+</body>
+</html>

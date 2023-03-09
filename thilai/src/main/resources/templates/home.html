@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/file_bootstrap5/bootstrap.min.css">
+    <script src="/file_bootstrap5/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<center><label>Thống Kê Đơn Hàng</label></center>
+<form th:action="@{/build}" style="margin-left: 20px">
+    <label>Hiển thị đơn hàng từ ngày:</label>
+    <input name="start" type="date" th:value="${start}"/>
+    <label>Đến ngày:</label>
+    <input name="end" type="date" th:value="${end}"/>
+    <input type="submit" class="btn btn-primary" role="button" aria-disabled="true" value="Tìm"/>
+</form>
+<form th:action="@{/build}" style="margin-left: 20px">
+    <label>Hiển thị top </label>
+    <input name="top" type="number" min="1" max="50" th:value="${top}"/>
+    <label> tổng tiền lớn nhất </label>
+    <input type="submit" class="btn btn-primary" role="button" aria-disabled="true" value="Tìm"/>
+</form>
+<b style="color: red;float: left;" th:if="${mess}" th:text="${mess}"></b>
+<table class="table table-striped">
+    <tr>
+        <th>STT</th>
+        <th>Mã Đơn Hàng</th>
+        <th>Tên Sản Phẩm</th>
+        <th>Giá(USD)</th>
+        <th>Loại Sản Phẩm</th>
+        <th>Ngày Mua</th>
+        <th>Số Lượng</th>
+        <th>Tổng Tiền(USD)</th>
+        <th>Actior</th>
+    </tr>
+    <tr th:if="${builds.isEmpty()}">
+    <td colspan="9"><b style="color: red">Không tìm thấy</b></td>
+    </tr>
+    <tr th:each="build,count:${builds}">
+        <td th:text="${count.count}"></td>
+        <td th:text="${build.product.id}"></td>
+        <td th:text="${build.product.name}"></td>
+        <td th:text="${build.product.price}"></td>
+        <td th:text="${build.product.typeProduct.name}"></td>
+        <td th:text="${#dates.format(build.dayBuy,'dd-MM-yyyy')}"></td>
+        <td th:text="${build.size}"></td>
+        <td th:text="${build.size*build.product.price}"></td>
+        <td><a th:href="@{/build/edit/{id}(id=${build.id})}" class="btn btn-primary" role="button" aria-disabled="true">Sửa</a>
+    </tr>
+</table>
+<center>
+    <div th:if="${!builds.isEmpty()}" style="margin-top: 50px">
+        <a class="btn btn-primary btn-sm" role="button" aria-disabled="true"
+           th:href="@{/build(page=${builds.number - 1},start=${start},end=${end},top=${top})}"
+           th:if="${builds.hasPrevious()}">Trước</a>
+        <span th:href="${builds.isEmpty()}" th:each="pageNo:${#numbers.sequence(0,builds.totalPages-1)}">
+                <a th:if="${!(builds.number==pageNo)}" class="btn btn-primary btn-sm" role="button"
+                   aria-disabled="true"
+                   th:href="@{/build(page=${pageNo},start=${start},end=${end},top=${top})}" th:text="${pageNo}"/>
+                <a th:if="${(builds.number==pageNo)}" class="btn btn-primary btn-sm" role="button"
+                   aria-disabled="true"
+                   th:href="@{/customer(page=${pageNo},start=${start},end=${end},top=${top})}" th:text="${pageNo}"
+                   style="background-color: red"/>
+            </span>
+        <a class="btn btn-primary btn-sm" role="button" aria-disabled="true"
+           th:href="@{/build(page=${builds.number + 1},start=${start},end=${end},top=${top})}"
+           th:if="${builds.hasNext()}">Sau</a>
+    </div>
+</center>
+</body>
+</html>

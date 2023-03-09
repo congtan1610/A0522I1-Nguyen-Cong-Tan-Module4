@@ -139,7 +139,7 @@ public class CustomerDto implements Validator {
         }
         if (!(birthDate == null)) {
             LocalDate temp = birthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            if (Period.between(java.time.LocalDate.now(), temp).getYears() > -18) {
+            if (Period.between(java.time.LocalDate.now(), temp).getYears() >= -18) {
                 errors.rejectValue("dateOfBirth", "", "younger than 18 years old");
             }
         }

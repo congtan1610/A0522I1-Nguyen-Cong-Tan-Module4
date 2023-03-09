@@ -12,20 +12,7 @@
 </head>
 
 <body class="container-fluid">
-<header>
-    <div class="logo">
-        <img src="http://placehold.it" width="50" height="50"><br>
-        <center><b>Logo</b></center>
-    </div>
-    <b class="user">Nguyễn Văn A</b>
-</header>
-<div class="link">
-    <a href="#" class="link_a" style="margin-left:100px">Home</a>
-    <a href="#" class="link_a">Employee</a>
-    <a href="/customer" class="link_a">Customer</a>
-    <a href="/facility" class="link_a">Service</a>
-    <a href="#" class="link_a">Contract</a>
-</div>
+<div th:include="~{Home::header}"></div>
 <div class="content">
     <center style="font-size: larger;"><b>List Customer</b></center>
     <form th:action="@{/customer}" style="float: left;margin-left: 20px">
@@ -95,9 +82,7 @@
         </div>
     </center>
 </div>
-<footer>
-    <center><b>Footer</b></center>
-</footer>
+<div th:include="~{Home::footer}"></div>
 
 <!-- Modal Delete-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +9,7 @@
 
 </head>
 <body>
+<div th:fragment="header">
     <header>
         <div class="logo">
             <img src="http://placehold.it" width="50" height="50"><br>
@@ -24,6 +25,8 @@
         <a href="#" class="link_a">Contract</a>
         <input class="search" type="text" placeholder="search" />
     </div>
+</div>
+
     <div class="content">
         <div class="content_left">
             <b class="item">item one</b><br>
@@ -34,7 +37,7 @@
 
         </div>
     </div>
-    <footer>
+    <footer th:fragment="footer">
         <center><b>Footer</b></center>
     </footer>
 </body>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/file_bootstrap5/bootstrap.min.css">
+    <script src="/file_bootstrap5/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<center>
+    <form method="post" action="/sale/update" th:object="${sale}">
+        <label>Sửa khuyến mãi</label>
+        <table width="70%">
+            <tr>
+                <td>
+                <div class="mb-3 ">
+                    <label class="form-label">Id</label>
+                    <input th:field="*{id}" type="text" class="form-control" disabled>
+                    <input th:field="*{id}" type="text" class="form-control" hidden>
+                </div>
+            </td>
+                <td>
+                    <div class="mb-3 ">
+                        <label class="form-label">Chi tiết</label>
+                        <input th:field="*{detail}" type="text" class="form-control" placeholder="Enter your rangeSale">
+                        <p style="color: red" th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}"></p>
+                    </div>
+                </td>
+                </tr>
+            <tr>
+                <td>
+                    <div class="mb-3 ">
+                        <label class="form-label">Tiêu đề</label>
+                        <input th:field="*{title}" type="text" class="form-control" placeholder="Enter your title">
+                        <p style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+                    </div>
+                </td>
+                <td>
+                    <div class="mb-3 ">
+                        <label class="form-label">thời gian bắt đầu</label>
+                        <input th:field="*{dateStart}" type="date" class="form-control" placeholder="Enter your timeStart">
+                        <p style="color: red" th:if="${#fields.hasErrors('dateStart')}" th:errors="*{dateStart}"></p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="mb-3 ">
+                        <label class="form-label">Mức giảm giá</label>
+                        <input th:field="*{rangeSale}" type="text" class="form-control" placeholder="Enter your rangeSale">
+                        <p style="color: red" th:if="${#fields.hasErrors('rangeSale')}" th:errors="*{rangeSale}"></p>
+                    </div>
+                </td>
+                <td>
+                    <div class="mb-3 ">
+                        <label class="form-label">thời gian kết thúc</label>
+                        <input th:field="*{dateEnd}" type="date" class="form-control" placeholder="Enter your timeEnd">
+                        <p style="color: red" th:if="${#fields.hasErrors('dateEnd')}" th:errors="*{dateEnd}"></p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <input type="submit" class="btn btn-primary" role="button"
+                           aria-disabled="true" style="float: right" value="Sửa"/>
+                    <input type="button" class="btn btn-primary" style="float: right;margin-right: 10px;" onclick="history.back()" value="Quay lại"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</center>
+</body>
+</html>
